@@ -1,15 +1,31 @@
+import '../model/TransferListItemData.dart';
 
-import 'package:flutter/material.dart';
+class TransferViewModel {
+  List<TransferListItemData> _transferList = List<TransferListItemData>();
+  List<TransferListItemData> get transferList => _transferList;
 
-class TransferViewModel extends StatefulWidget {
-  @override
-  _TransferViewModelState createState() => _TransferViewModelState();
-}
-
-class _TransferViewModelState extends State<TransferViewModel> {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
+  TransferViewModel(){
+    _transferList.add(TransferListItemData(
+      address: "asd",
+      date: DateTime.now(),
+      state: TransferListItemState.DONE,
+    ));
+    _transferList.add(TransferListItemData(
+      address: "asd",
+      date: DateTime.now(),
+      state: TransferListItemState.OFFER_CLAIM_SENT,
+    ));
+    _transferList.add(TransferListItemData(
+      address: "asd",
+      date: DateTime.now(),
+      state: TransferListItemState.OFFER_RECEIVED,
+    ));
+    _transferList.add(TransferListItemData(
+      address: "asd",
+      date: DateTime.now(),
+      state: TransferListItemState.UNDER_TRANSFER,
+    ));
   }
+
+
 }

@@ -25,5 +25,19 @@ class StringResource {
   static const String REGISTER_COUNTRY_CODE_LABEL = "Országkód";
   static const String REGISTER_TEL_LABEL = "Telefonszám";
 
+  static const String TRANSFER_TITLE = "Foglalások";
+  static const String TRANSFER_NEW_BUTTON_TEXT = "Új foglalás";
+
+  static const String CONTACT_TITLE = "Kapcsolat";
+  static const String CONTACT_DESC = "Amennyiben kérdése akadna, vagy valamilyen probléma adódna, vegye fel felünk a kapcsolatot!";
+  static const String CONTACT_EMAIL = "info@milcomp.hu";
+  static const String CONTACT_TEL1 = "+36 20 123 4567";
+  static const String CONTACT_TEL2 = "+36 30 123 4567";
+  static const String CONTACT_FB = "facebook.com/milcompweb/";
+
+  static const String PROFILE_TITLE = "Beállítások";
+  static const String PROFILE_SAVE_BUTTON_TEXT = "Mentés";
+  static const String PROFILE_a = "facebook.com/milcompweb/";
+  static const String PROFILE_s = "facebook.com/milcompweb/";
 
 }

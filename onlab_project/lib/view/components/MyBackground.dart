@@ -18,8 +18,8 @@ class MyBackground extends StatelessWidget {
         ),
       ),
       child: Container(
-        height: ScreenUtil.screenHeightDp,
-        width: ScreenUtil.screenWidthDp,
+        //height: ScreenUtil.screenHeightDp,
+       // width: ScreenUtil.screenWidthDp,
         decoration: BoxDecoration(
           color: Color.fromARGB(127, 255, 115, 0),
         ),
