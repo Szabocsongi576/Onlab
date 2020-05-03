@@ -1,25 +1,14 @@
-
 import 'package:flutter/material.dart';
+import 'package:onlabproject/model/ObjectListItemData.dart';
 
-class ProfileViewModel {
+class TransferFlowData {
+  String _email, _firstName, _lastName, _postalCode, _city, _streetAndNum, _other, _countryCode, _tel;
+  List<ObjectListItemData> _objectList = List();
 
-  String _username, _password, _email, _firstName, _lastName, _postalCode, _city, _streetAndNum, _other, _countryCode, _tel;
-
-  String get username => _username;
-  String get password => _password;
-  String get email => _email;
-  String get firstName => _firstName;
-  String get lastName => _lastName;
-  String get city => _city;
-  String get streetAndNum => _streetAndNum;
-  String get other => _other;
-  String get countryCode => _countryCode;
-  String get tel => _tel;
-  String get postalCode => _postalCode;
+  DateTime _selectedDate = DateTime.now();
+  String _selectedDayPeriod;
 
   Map<String, FocusNode> _focusNodeMap = {
-    "username": FocusNode(),
-    "password": FocusNode(),
     "email": FocusNode(),
     "firstName": FocusNode(),
     "lastName": FocusNode(),
@@ -29,12 +18,11 @@ class ProfileViewModel {
     "other": FocusNode(),
     "countryCode": FocusNode(),
     "tel": FocusNode(),
-  };
-  Map<String, FocusNode> get focusNodeMap => _focusNodeMap;
 
+    "objectName": FocusNode(),
+    "pieceOfObject": FocusNode(),
+  };
   Map<String, TextEditingController> _textEditingControllerMap = {
-    "username": TextEditingController(),
-    "password": TextEditingController(),
     "email": TextEditingController(),
     "firstName": TextEditingController(),
     "lastName": TextEditingController(),
@@ -44,25 +32,12 @@ class ProfileViewModel {
     "other": TextEditingController(),
     "countryCode": TextEditingController(),
     "tel": TextEditingController(),
-  };
-  Map<String, TextEditingController> get textEditingControllerMap =>
-      _textEditingControllerMap;
 
-  RegisterModel() {
-    _textEditingControllerMap["username"].addListener(() {
-      if (_textEditingControllerMap["username"].text.isEmpty) {
-        _username = "";
-      } else {
-        _username = _textEditingControllerMap["username"].text;
-      }
-    });
-    _textEditingControllerMap["password"].addListener(() {
-      if (_textEditingControllerMap["password"].text.isEmpty) {
-        _password = "";
-      } else {
-        _password = _textEditingControllerMap["password"].text;
-      }
-    });
+    "objectName": TextEditingController(),
+    "pieceOfObject": TextEditingController(),
+  };
+
+  TransferFlowData() {
     _textEditingControllerMap["email"].addListener(() {
       if (_textEditingControllerMap["email"].text.isEmpty) {
         _email = "";
@@ -128,4 +103,28 @@ class ProfileViewModel {
     });
   }
 
+  String get email => _email;
+  String get firstName => _firstName;
+  String get lastName => _lastName;
+  String get city => _city;
+  String get streetAndNum => _streetAndNum;
+  String get other => _other;
+  String get countryCode => _countryCode;
+  String get tel => _tel;
+  String get postalCode => _postalCode;
+
+  List<ObjectListItemData> get objectList => _objectList;
+
+  DateTime get selectedDate => _selectedDate;
+  String get selectedDayPeriod => _selectedDayPeriod;
+
+  Map<String, FocusNode> get focusNodeMap => _focusNodeMap;
+  Map<String, TextEditingController> get textEditingControllerMap => _textEditingControllerMap;
+
+  set selectedDate(DateTime value) {
+    _selectedDate = value;
+  }
+  set selectedDayPeriod(String value) {
+    _selectedDayPeriod = value;
+  }
 }

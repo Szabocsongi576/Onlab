@@ -1,14 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:onlabproject/controller/TransferFlowController.dart';
+import 'package:onlabproject/controller/TransferViewModel.dart';
 
 import '../Resource/StringResource.dart';
-import '../viewmodel/TransferViewModel.dart';
-import 'OfferView.dart';
-import 'components/MyBackground.dart';
 import 'components/MyBackground.dart';
 import 'components/MyButton.dart';
-import 'components/TransferListItem.dart';
 import 'components/TransferListItem.dart';
 
 class TransferView extends StatefulWidget {
@@ -82,7 +80,7 @@ class _TransferViewState extends State<TransferView> {
                       ),
                       width: ScreenUtil().setWidth(450),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => OfferView()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TransferFlowController()));
                       },
                     ),
                   ),
