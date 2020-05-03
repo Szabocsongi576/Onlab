@@ -1,0 +1,5 @@
+user@gmail.com
+123456
+
+Notifying id token listeners about user ( a3kEy6ScIqZ3OSNAvtKk0PzU0Ek1 ).
+Notifying auth state listeners about user ( a3kEy6ScIqZ3OSNAvtKk0PzU0Ek1 ).
