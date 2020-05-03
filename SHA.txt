@@ -1,0 +1,10 @@
+RELEASE:
+keytool -exportcert -list -v -alias onlab_sha -keystore E:\work\Flutter projects\Onlab
+!!
+
+
+DEBUG:
+keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
+pw: android
+SHA1: FD:74:0D:62:5D:FD:1C:BA:AA:94:89:71:6E:46:25:CB:8D:6B:7E:15
+SHA256: 5E:92:1C:4A:93:78:0B:0D:55:78:86:6C:90:16:E2:FD:14:E5:C9:2B:CB:98:69:99:B3:64:38:52:D1:D9:04:4D

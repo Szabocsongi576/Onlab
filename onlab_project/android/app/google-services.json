@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "402635016505",
+    "firebase_url": "https://onlab-a6959.firebaseio.com",
+    "project_id": "onlab-a6959",
+    "storage_bucket": "onlab-a6959.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402635016505:android:3109528430ed7d2da6c0e8",
+        "android_client_info": {
+          "package_name": "hu.milcomp.onlabproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402635016505-hia2l5131knfjjtc01h4eeloh3rafamg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.milcomp.onlabproject",
+            "certificate_hash": "fd740d625dfd1cbaaa9489716e4625cb8d6b7e15"
+          }
+        },
+        {
+          "client_id": "402635016505-kmcokp720pkdm61c59ecjbs3rjuj6flv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqMwk6D0rGUNCd4Fuem3w50JRG3no5Hnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402635016505-kmcokp720pkdm61c59ecjbs3rjuj6flv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
