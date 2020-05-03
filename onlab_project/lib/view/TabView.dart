@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:onlabproject/controller/ProfileController.dart';
 
 import 'ContactView.dart';
 import 'ProfileView.dart';
@@ -64,7 +65,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
             children: [
               TransferView(),
               ContactView(),
-              ProfileView(),
+              ProfileController(),
             ],
           ),
           bottomNavigationBar: (Platform.isIOS)
