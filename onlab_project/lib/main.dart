@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:onlabproject/controller/AuthController.dart';
 
-import 'Login.dart';
-
-void main() => runApp(MyApp());
+Future<void> main() async {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -24,6 +25,6 @@ class MyHomePage extends StatelessWidget {
         width: 750,
         height: 1500,
         allowFontScaling: true);
-    return Login();
+    return AuthController();
   }
 }

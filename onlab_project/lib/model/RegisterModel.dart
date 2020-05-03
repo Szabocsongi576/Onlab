@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RegisterModel {
-  String _username, _password, _email, _firstName, _lastName, _postalCode, _city, _streetAndNum, _other, _countryCode, _tel;
+  /*String _username, _password, _email, _firstName, _lastName, _postalCode, _city, _streetAndNum, _other, _countryCode, _tel;
 
   String get username => _username;
   String get password => _password;
@@ -13,10 +13,10 @@ class RegisterModel {
   String get other => _other;
   String get countryCode => _countryCode;
   String get tel => _tel;
-  String get postalCode => _postalCode;
+  String get postalCode => _postalCode;*/
 
-  Map<String, FocusNode> _focusNodeMap = {
-    "username": FocusNode(),
+  Map<String, FocusNode> focusNodeMap = {
+    //"username": FocusNode(),
     "password": FocusNode(),
     "email": FocusNode(),
     "firstName": FocusNode(),
@@ -28,10 +28,9 @@ class RegisterModel {
     "countryCode": FocusNode(),
     "tel": FocusNode(),
   };
-  Map<String, FocusNode> get focusNodeMap => _focusNodeMap;
 
-  Map<String, TextEditingController> _textEditingControllerMap = {
-    "username": TextEditingController(),
+  Map<String, TextEditingController> textEditingControllerMap = {
+    //"username": TextEditingController(),
     "password": TextEditingController(),
     "email": TextEditingController(),
     "firstName": TextEditingController(),
@@ -43,10 +42,10 @@ class RegisterModel {
     "countryCode": TextEditingController(),
     "tel": TextEditingController(),
   };
-  Map<String, TextEditingController> get textEditingControllerMap =>
-      _textEditingControllerMap;
 
-  RegisterModel() {
+  RegisterModel() {}
+
+  /*RegisterModel() {
     _textEditingControllerMap["username"].addListener(() {
       if (_textEditingControllerMap["username"].text.isEmpty) {
         _username = "";
@@ -124,5 +123,5 @@ class RegisterModel {
         _tel = _textEditingControllerMap["tel"].text;
       }
     });
-  }
+  }*/
 }
