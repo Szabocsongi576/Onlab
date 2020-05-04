@@ -2,16 +2,16 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:onlabproject/controller/ContactController.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';
 
-class ContactView extends StatefulWidget {
-  @override
-  _ContactViewState createState() => _ContactViewState();
-}
+class ContactView extends StatelessWidget {
+  final IContactController controller;
 
-class _ContactViewState extends State<ContactView> {
+  const ContactView({Key key, this.controller}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +85,9 @@ class _ContactViewState extends State<ContactView> {
                           ),
                         ],
                       ),
-                      onTap: () {}, //TODO
+                      onTap: () {
+                        this.controller.launchEmail(StringResource.CONTACT_EMAIL);
+                      },
                     ),
                   ),
                   Padding(
@@ -115,8 +117,10 @@ class _ContactViewState extends State<ContactView> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                onTap: () {} //TODO,
-                                ),
+                                onTap: () {
+                                  this.controller.launchPhone(StringResource.CONTACT_TEL1);
+                                },
+                            ),
                             SizedBox(
                               height: ScreenUtil().setHeight(30),
                             ),
@@ -130,7 +134,9 @@ class _ContactViewState extends State<ContactView> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                onTap: () {} //TODO,
+                                onTap: () {
+                                  this.controller.launchPhone(StringResource.CONTACT_TEL2);
+                                },
                             ),
                           ],
                         ),
@@ -164,7 +170,9 @@ class _ContactViewState extends State<ContactView> {
                           ),
                         ],
                       ),
-                      onTap: () {}, //TODO
+                      onTap: () async {
+                        await controller.launchFacebook(StringResource.CONTACT_FB);
+                      },
                     ),
                   ),
                 ],
