@@ -14,12 +14,8 @@ class AuthController extends StatefulWidget {
   _AuthControllerState createState() => _AuthControllerState();
 }
 
-class _AuthControllerState extends State<AuthController>
-    implements IAuthController {
-  MyFirebaseAuthManager _firebaseManager = MyFirebaseAuthManager();
-
+class _AuthControllerState extends State<AuthController> implements IAuthController {
   AuthData _authData;
-
   AuthState _authState = AuthState.LOADING;
 
   final _storage = FlutterSecureStorage();
@@ -39,14 +35,12 @@ class _AuthControllerState extends State<AuthController>
     if (e != null && pw != null) {
       _authData.emailController.text = e;
       _authData.passwordController.text = pw;
-      setState(() {
-        _authData.rememberMe = true;
-      }); //TODO MOBX
+      _authData.rememberMe = true;
     }
 
     setState(() {
       _authState = AuthState.LOGIN;
-    });
+    }); //TODO MOBX
   }
 
   @override
@@ -102,7 +96,7 @@ class _AuthControllerState extends State<AuthController>
       _authState = AuthState.LOADING;
     });
 
-    _firebaseManager
+    MyFirebaseAuthManager
         .signInWithEmailAndPassword(email, password)
         .then((succeed) {
       if (succeed) {
@@ -131,7 +125,7 @@ class _AuthControllerState extends State<AuthController>
       _authState = AuthState.LOADING;
     });
 
-    _firebaseManager
+    MyFirebaseAuthManager
         .register(email, password, data)
         .then((succeed) {
       if (succeed) {

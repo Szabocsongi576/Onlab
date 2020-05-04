@@ -1,35 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:onlabproject/firebase/MyFirebaseAuthManager.dart';
 import 'package:onlabproject/model/ProfileData.dart';
 
 class MyFirebaseProfileManager {
-  FirebaseDatabase _database = FirebaseDatabase.instance;
-  FirebaseUser _user;
-  DatabaseReference _profileRef;
+  static FirebaseDatabase _database = FirebaseDatabase.instance;
 
-  MyFirebaseProfileManager();
-
-  Future<MyFirebaseProfileManager> init({user: FirebaseUser}) async {
-    /*if(user != null) {
-      _user = user;
-    } else {*/
-      _user = await FirebaseAuth.instance.currentUser();
-   // }
-
-    _profileRef = _database.reference().child(_user.uid).child('profile');
-
-    return this;
+  static addOrUpdateProfile(ProfileData data) {
+    DatabaseReference profileRef = _database.reference().child(MyFirebaseAuthManager.user.uid).child('profile');
+    profileRef.set(data.toJson());
   }
 
-  addOrUpdateProfile(ProfileData data) {
-    _profileRef.set(data.toJson());
+  static Future<ProfileData> getProfileData() async {
+    DatabaseReference profileRef = _database.reference().child(MyFirebaseAuthManager.user.uid).child('profile');
+    return ProfileData.fromSnapshot(await profileRef.once());
   }
 
-  Future<ProfileData> getProfileData() async {
-    return ProfileData.fromSnapshot(await _profileRef.once());
-  }
-
-  onChildChanged(Function callback(Event event)) {
-    _profileRef.onChildChanged.listen(callback);
+  static onChildChanged(Function callback(Event event)) {
+    DatabaseReference profileRef = _database.reference().child(MyFirebaseAuthManager.user.uid).child('profile');
+    profileRef.onChildChanged.listen(callback);
   }
 }

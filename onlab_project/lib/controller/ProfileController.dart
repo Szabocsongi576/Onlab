@@ -12,17 +12,14 @@ class ProfileController extends StatefulWidget {
   _ProfileControllerState createState() => _ProfileControllerState();
 }
 
-class _ProfileControllerState extends State<ProfileController>
-    implements IProfileController {
-  MyFirebaseProfileManager _profileManager;
+class _ProfileControllerState extends State<ProfileController> implements IProfileController {
 
   ProfileViewModel _profileViewModel = ProfileViewModel();
 
   ProfileState _profileState = ProfileState.LOADING;
 
   _loadProfileData() async {
-    _profileManager = await MyFirebaseProfileManager().init();
-    _profileViewModel.data = await _profileManager.getProfileData();
+    _profileViewModel.data = await MyFirebaseProfileManager.getProfileData();
 
     setState(() {
       _profileState = ProfileState.PROFILE;
@@ -30,7 +27,7 @@ class _ProfileControllerState extends State<ProfileController>
   }
 
   save(ProfileData data) {
-    _profileManager.addOrUpdateProfile(data);
+    MyFirebaseProfileManager.addOrUpdateProfile(data);
   }
 
   @override
@@ -61,8 +58,7 @@ class _ProfileControllerState extends State<ProfileController>
 
   @override
   void signOut() {
-    MyFirebaseAuthManager authManager = MyFirebaseAuthManager();
-    authManager.signOut();
+    MyFirebaseAuthManager.signOut();
 
     Navigator.pushReplacement(
       context,
