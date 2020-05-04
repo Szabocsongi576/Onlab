@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/converter/TransferListItemStateConverter.dart';
-import 'package:onlabproject/model/TransferListItemData.dart';
+import 'package:onlabproject/model/TransferItemModel.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 
 import 'components/MyBackground.dart';
 
 class OfferView extends StatefulWidget {
-  final TransferListItemData data;
+  final TransferItemModel data;
 
   const OfferView({Key key, this.data}) : super(key: key);
 

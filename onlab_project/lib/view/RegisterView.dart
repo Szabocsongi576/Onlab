@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/model/AuthData.dart';
-import 'package:onlabproject/model/ProfileData.dart';
+import 'package:onlabproject/page_data/AuthData.dart';
+import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 
@@ -20,27 +20,53 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
 
   _register() {
-    String email =  widget.data.registerModel.textEditingControllerMap["email"].text;
-    String password =  widget.data.registerModel.textEditingControllerMap["password"].text;
-    ProfileData data = ProfileData(
-      email:  widget.data.registerModel.textEditingControllerMap["email"].text,
-      firstName:  widget.data.registerModel.textEditingControllerMap["firstName"].text,
-      lastName:  widget.data.registerModel.textEditingControllerMap["lastName"].text,
-      postalCode:  widget.data.registerModel.textEditingControllerMap["postalCode"].text,
-      city:  widget.data.registerModel.textEditingControllerMap["city"].text,
-      streetAndNum:  widget.data.registerModel.textEditingControllerMap["streetAndNum"].text,
-      other:  widget.data.registerModel.textEditingControllerMap["other"].text,
-      countryCode:  widget.data.registerModel.textEditingControllerMap["countryCode"].text,
-      tel:  widget.data.registerModel.textEditingControllerMap["tel"].text,
-    );
+    if(_validate()) {
+      widget.authController.register();
+    } else {
+      //TODO ERROR snackbar
+    }
+  }
 
-    print(data.toJson());
+  bool _validate() {
+    String password = widget.data.textEditingControllerMap["password"].text;
+    String email = widget.data.textEditingControllerMap["email"].text;
+    String firstName = widget.data.textEditingControllerMap["firstName"].text;
+    String lastName = widget.data.textEditingControllerMap["lastName"].text;
+    String postalCode = widget.data.textEditingControllerMap["postalCode"].text;
+    String city = widget.data.textEditingControllerMap["city"].text;
+    String streetAndNum = widget.data.textEditingControllerMap["streetAndNum"].text;
+    String countryCode = widget.data.textEditingControllerMap["countryCode"].text;
+    String tel = widget.data.textEditingControllerMap["tel"].text;
 
-    widget.authController.register(
-      email,
-      password,
-      data,
-    );
+    if(password.length < 6) {
+      widget.data.errorMap["password"] = true;
+    }
+    if(email.length < 5 && !email.contains("@") && !email.contains(".")) {
+      widget.data.errorMap["email"] = true;
+    }
+    if(firstName.length == 0) {
+      widget.data.errorMap["firstName"] = true;
+    }
+    if(lastName.length == 0) {
+      widget.data.errorMap["lastName"] = true;
+    }
+    if(postalCode.length == 0) {
+      widget.data.errorMap["postalCode"] = true;
+    }
+    if(city.length == 0) {
+      widget.data.errorMap["city"] = true;
+    }
+    if(streetAndNum.length == 0) {
+      widget.data.errorMap["streetAndNum"] = true;
+    }
+    if(countryCode.length == 0) {
+      widget.data.errorMap["countryCode"] = true;
+    }
+    if(tel.length < 6) {
+      widget.data.errorMap["tel"] = true;
+    }
+
+    return widget.data.errorMap.containsValue(true) ? false : true;
   }
 
   @override
@@ -48,7 +74,7 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
-          widget.data.registerModel.focusNodeMap.forEach((key, value) =>  value.unfocus());
+          widget.data.focusNodeMap.forEach((key, value) =>  value.unfocus());
         },
         child: SingleChildScrollView(
           child: MyBackground(
@@ -123,8 +149,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["email"],
-                          focusNode: widget.data.registerModel.focusNodeMap["email"],
+                          controller: widget.data.textEditingControllerMap["email"],
+                          focusNode: widget.data.focusNodeMap["email"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.emailAddress,
@@ -146,8 +172,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["password"],
-                          focusNode: widget.data.registerModel.focusNodeMap["password"],
+                          controller: widget.data.textEditingControllerMap["password"],
+                          focusNode: widget.data.focusNodeMap["password"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.text,
@@ -170,8 +196,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["firstName"],
-                          focusNode: widget.data.registerModel.focusNodeMap["firstName"],
+                          controller: widget.data.textEditingControllerMap["firstName"],
+                          focusNode: widget.data.focusNodeMap["firstName"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.text,
@@ -193,8 +219,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["lastName"],
-                          focusNode: widget.data.registerModel.focusNodeMap["lastName"],
+                          controller: widget.data.textEditingControllerMap["lastName"],
+                          focusNode: widget.data.focusNodeMap["lastName"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.text,
@@ -216,8 +242,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["postalCode"],
-                          focusNode: widget.data.registerModel.focusNodeMap["postalCode"],
+                          controller: widget.data.textEditingControllerMap["postalCode"],
+                          focusNode: widget.data.focusNodeMap["postalCode"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.number,
@@ -239,8 +265,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["city"],
-                          focusNode: widget.data.registerModel.focusNodeMap["city"],
+                          controller: widget.data.textEditingControllerMap["city"],
+                          focusNode: widget.data.focusNodeMap["city"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.text,
@@ -262,8 +288,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["streetAndNum"],
-                          focusNode: widget.data.registerModel.focusNodeMap["streetAndNum"],
+                          controller: widget.data.textEditingControllerMap["streetAndNum"],
+                          focusNode: widget.data.focusNodeMap["streetAndNum"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.text,
@@ -285,8 +311,8 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
-                          controller: widget.data.registerModel.textEditingControllerMap["other"],
-                          focusNode: widget.data.registerModel.focusNodeMap["other"],
+                          controller: widget.data.textEditingControllerMap["other"],
+                          focusNode: widget.data.focusNodeMap["other"],
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           keyboardType: TextInputType.text,
@@ -313,8 +339,8 @@ class _RegisterViewState extends State<RegisterView> {
                             Container(
                               width: ScreenUtil().setWidth(190),
                               child: TextField(
-                                controller: widget.data.registerModel.textEditingControllerMap["countryCode"],
-                                focusNode: widget.data.registerModel.focusNodeMap["countryCode"],
+                                controller: widget.data.textEditingControllerMap["countryCode"],
+                                focusNode: widget.data.focusNodeMap["countryCode"],
                                 style: TextStyle(color: Colors.white),
                                 cursorColor: Colors.white,
                                 keyboardType: TextInputType.phone,
@@ -336,8 +362,8 @@ class _RegisterViewState extends State<RegisterView> {
                             Container(
                               width: ScreenUtil().setWidth(390),
                               child: TextField(
-                                controller: widget.data.registerModel.textEditingControllerMap["tel"],
-                                focusNode: widget.data.registerModel.focusNodeMap["tel"],
+                                controller: widget.data.textEditingControllerMap["tel"],
+                                focusNode: widget.data.focusNodeMap["tel"],
                                 style: TextStyle(color: Colors.white),
                                 cursorColor: Colors.white,
                                 keyboardType: TextInputType.phone,

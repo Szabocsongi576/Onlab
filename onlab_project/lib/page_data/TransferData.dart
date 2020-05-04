@@ -1,26 +1,25 @@
-import '../model/TransferListItemData.dart';
+import '../model/TransferItemModel.dart';
 
-class TransferViewModel {
-  List<TransferListItemData> _transferList = List<TransferListItemData>();
-  List<TransferListItemData> get transferList => _transferList;
+class TransferData {
+  List<TransferItemModel> transferList = List<TransferItemModel>();
 
-  TransferViewModel(){
-    _transferList.add(TransferListItemData(
+  TransferData(){
+    transferList.add(TransferItemModel(
       address: "asd",
       date: DateTime.now(),
       state: TransferListItemState.DONE,
     ));
-    _transferList.add(TransferListItemData(
+    transferList.add(TransferItemModel(
       address: "asd",
       date: DateTime.now(),
       state: TransferListItemState.OFFER_CLAIM_SENT,
     ));
-    _transferList.add(TransferListItemData(
+    transferList.add(TransferItemModel(
       address: "asd",
       date: DateTime.now(),
       state: TransferListItemState.OFFER_RECEIVED,
     ));
-    _transferList.add(TransferListItemData(
+    transferList.add(TransferItemModel(
       address: "asd",
       date: DateTime.now(),
       state: TransferListItemState.UNDER_TRANSFER,

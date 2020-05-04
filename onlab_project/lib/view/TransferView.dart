@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/controller/TransferFlowController.dart';
-import 'package:onlabproject/controller/TransferViewModel.dart';
+import 'package:onlabproject/page_data/TransferData.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';
@@ -15,7 +15,7 @@ class TransferView extends StatefulWidget {
 }
 
 class _TransferViewState extends State<TransferView> {
-  TransferViewModel _transferViewModel = TransferViewModel();
+  TransferData _transferViewModel = TransferData();
 
 
   @override

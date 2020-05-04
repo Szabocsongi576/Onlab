@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/controller/AuthController.dart';
 import 'package:onlabproject/controller/ProfileController.dart';
-import 'package:onlabproject/controller/ProfileViewModel.dart';
-import 'package:onlabproject/model/ProfileData.dart';
+import 'package:onlabproject/page_data/ProfileData.dart';
+import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 
 import '../Resource/StringResource.dart';
@@ -12,9 +12,9 @@ import 'components/MyBackground.dart';
 
 class ProfileView extends StatefulWidget {
   final IProfileController profileController;
-  final ProfileViewModel profileViewModel;
+  final ProfileData data;
 
-  const ProfileView({Key key, this.profileController, this.profileViewModel}) : super(key: key);
+  const ProfileView({Key key, this.profileController, this.data}) : super(key: key);
 
   @override
   _ProfileViewState createState() => _ProfileViewState();
@@ -23,19 +23,61 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
 
   _save() {
-    ProfileData data = ProfileData(
-      email:  widget.profileViewModel.textEditingControllerMap["email"].text,
-      firstName:  widget.profileViewModel.textEditingControllerMap["firstName"].text,
-      lastName:  widget.profileViewModel.textEditingControllerMap["lastName"].text,
-      postalCode:  widget.profileViewModel.textEditingControllerMap["postalCode"].text,
-      city:  widget.profileViewModel.textEditingControllerMap["city"].text,
-      streetAndNum:  widget.profileViewModel.textEditingControllerMap["streetAndNum"].text,
-      other:  widget.profileViewModel.textEditingControllerMap["other"].text,
-      countryCode:  widget.profileViewModel.textEditingControllerMap["countryCode"].text,
-      tel:  widget.profileViewModel.textEditingControllerMap["tel"].text,
-    );
+    if(_validate()) {
+      ProfileModel data = ProfileModel(
+        email:  widget.data.textEditingControllerMap["email"].text,
+        firstName:  widget.data.textEditingControllerMap["firstName"].text,
+        lastName:  widget.data.textEditingControllerMap["lastName"].text,
+        postalCode:  widget.data.textEditingControllerMap["postalCode"].text,
+        city:  widget.data.textEditingControllerMap["city"].text,
+        streetAndNum:  widget.data.textEditingControllerMap["streetAndNum"].text,
+        other:  widget.data.textEditingControllerMap["other"].text,
+        countryCode:  widget.data.textEditingControllerMap["countryCode"].text,
+        tel:  widget.data.textEditingControllerMap["tel"].text,
+      );
 
-    widget.profileController.save(data);
+      widget.profileController.save(data);
+    } else {
+      //TODO ERROR snackbar
+    }
+  }
+
+  bool _validate() {
+    String email = widget.data.textEditingControllerMap["email"].text;
+    String firstName = widget.data.textEditingControllerMap["firstName"].text;
+    String lastName = widget.data.textEditingControllerMap["lastName"].text;
+    String postalCode = widget.data.textEditingControllerMap["postalCode"].text;
+    String city = widget.data.textEditingControllerMap["city"].text;
+    String streetAndNum = widget.data.textEditingControllerMap["streetAndNum"].text;
+    String countryCode = widget.data.textEditingControllerMap["countryCode"].text;
+    String tel = widget.data.textEditingControllerMap["tel"].text;
+
+    if(email.length < 5 && !email.contains("@") && !email.contains(".")) {
+      widget.data.errorMap["email"] = true;
+    }
+    if(firstName.length == 0) {
+      widget.data.errorMap["firstName"] = true;
+    }
+    if(lastName.length == 0) {
+      widget.data.errorMap["lastName"] = true;
+    }
+    if(postalCode.length == 0) {
+      widget.data.errorMap["postalCode"] = true;
+    }
+    if(city.length == 0) {
+      widget.data.errorMap["city"] = true;
+    }
+    if(streetAndNum.length == 0) {
+      widget.data.errorMap["streetAndNum"] = true;
+    }
+    if(countryCode.length == 0) {
+      widget.data.errorMap["countryCode"] = true;
+    }
+    if(tel.length < 6) {
+      widget.data.errorMap["tel"] = true;
+    }
+
+    return widget.data.errorMap.containsValue(true) ? false : true;
   }
 
   @override
@@ -96,8 +138,8 @@ class _ProfileViewState extends State<ProfileView> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.profileViewModel.textEditingControllerMap["firstName"],
-                        focusNode: widget.profileViewModel.focusNodeMap["firstName"],
+                        controller: widget.data.textEditingControllerMap["firstName"],
+                        focusNode: widget.data.focusNodeMap["firstName"],
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         keyboardType: TextInputType.text,
@@ -119,8 +161,8 @@ class _ProfileViewState extends State<ProfileView> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.profileViewModel.textEditingControllerMap["lastName"],
-                        focusNode: widget.profileViewModel.focusNodeMap["lastName"],
+                        controller: widget.data.textEditingControllerMap["lastName"],
+                        focusNode: widget.data.focusNodeMap["lastName"],
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         keyboardType: TextInputType.text,
@@ -142,8 +184,8 @@ class _ProfileViewState extends State<ProfileView> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.profileViewModel.textEditingControllerMap["postalCode"],
-                        focusNode: widget.profileViewModel.focusNodeMap["postalCode"],
+                        controller: widget.data.textEditingControllerMap["postalCode"],
+                        focusNode: widget.data.focusNodeMap["postalCode"],
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         keyboardType: TextInputType.number,
@@ -165,8 +207,8 @@ class _ProfileViewState extends State<ProfileView> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.profileViewModel.textEditingControllerMap["city"],
-                        focusNode: widget.profileViewModel.focusNodeMap["city"],
+                        controller: widget.data.textEditingControllerMap["city"],
+                        focusNode: widget.data.focusNodeMap["city"],
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         keyboardType: TextInputType.text,
@@ -188,8 +230,8 @@ class _ProfileViewState extends State<ProfileView> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.profileViewModel.textEditingControllerMap["streetAndNum"],
-                        focusNode: widget.profileViewModel.focusNodeMap["streetAndNum"],
+                        controller: widget.data.textEditingControllerMap["streetAndNum"],
+                        focusNode: widget.data.focusNodeMap["streetAndNum"],
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         keyboardType: TextInputType.text,
@@ -211,8 +253,8 @@ class _ProfileViewState extends State<ProfileView> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.profileViewModel.textEditingControllerMap["other"],
-                        focusNode: widget.profileViewModel.focusNodeMap["other"],
+                        controller: widget.data.textEditingControllerMap["other"],
+                        focusNode: widget.data.focusNodeMap["other"],
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         keyboardType: TextInputType.text,
@@ -239,8 +281,8 @@ class _ProfileViewState extends State<ProfileView> {
                           Container(
                             width: ScreenUtil().setWidth(190),
                             child: TextField(
-                              controller: widget.profileViewModel.textEditingControllerMap["countryCode"],
-                              focusNode: widget.profileViewModel.focusNodeMap["countryCode"],
+                              controller: widget.data.textEditingControllerMap["countryCode"],
+                              focusNode: widget.data.focusNodeMap["countryCode"],
                               style: TextStyle(color: Colors.white),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.phone,
@@ -262,8 +304,8 @@ class _ProfileViewState extends State<ProfileView> {
                           Container(
                             width: ScreenUtil().setWidth(390),
                             child: TextField(
-                              controller: widget.profileViewModel.textEditingControllerMap["tel"],
-                              focusNode: widget.profileViewModel.focusNodeMap["tel"],
+                              controller: widget.data.textEditingControllerMap["tel"],
+                              focusNode: widget.data.focusNodeMap["tel"],
                               style: TextStyle(color: Colors.white),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.phone,

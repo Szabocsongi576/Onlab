@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 
-class TransferListItemData {
+class TransferItemModel {
   String key;
   String address;
   DateTime date;
@@ -9,7 +9,7 @@ class TransferListItemData {
   String description;
   int price;
 
-  TransferListItemData({
+  TransferItemModel({
     @required this.address,
     @required this.date,
     this.state = TransferListItemState.OFFER_CLAIM_SENT,
@@ -17,7 +17,7 @@ class TransferListItemData {
     this.price,
   });
 
-  TransferListItemData.fromSnapshot(DataSnapshot snapshot) :
+  TransferItemModel.fromSnapshot(DataSnapshot snapshot) :
         key = snapshot.key,
         address = snapshot.value["address"],
         date = snapshot.value["date"],

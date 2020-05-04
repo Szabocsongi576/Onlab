@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/model/TransferFlowData.dart';
+import 'package:onlabproject/page_data/TransferFlowData.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';

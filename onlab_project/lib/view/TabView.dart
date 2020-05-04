@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/controller/ProfileController.dart';
 
 import 'ContactView.dart';
-import 'ProfileView.dart';
 import 'TransferView.dart';
 
 class TabView extends StatefulWidget {

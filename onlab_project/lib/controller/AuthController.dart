@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:onlabproject/LoginView.dart';
-import 'package:onlabproject/RegisterView.dart';
+import 'package:onlabproject/view/LoginView.dart';
+import 'package:onlabproject/view/RegisterView.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/firebase/MyFirebaseAuthManager.dart';
-import 'package:onlabproject/model/AuthData.dart';
-import 'package:onlabproject/model/ProfileData.dart';
+import 'package:onlabproject/page_data/AuthData.dart';
+import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/view/TabView.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 
@@ -33,8 +33,8 @@ class _AuthControllerState extends State<AuthController> implements IAuthControl
     String e = await _storage.read(key: StringResource.STORAGE_E_KEY);
     String pw = await _storage.read(key: StringResource.STORAGE_PW_KEY);
     if (e != null && pw != null) {
-      _authData.emailController.text = e;
-      _authData.passwordController.text = pw;
+      _authData.textEditingControllerMap["login_email"].text = e;
+      _authData.textEditingControllerMap["login_password"].text = pw;
       _authData.rememberMe = true;
     }
 
@@ -89,12 +89,15 @@ class _AuthControllerState extends State<AuthController> implements IAuthControl
   }
 
   @override
-  void login(String email, String password) {
+  void login() {
     print("LOGIN");
 
     setState(() {
       _authState = AuthState.LOADING;
     });
+
+    String email = _authData.textEditingControllerMap["login_email"].text;
+    String password = _authData.textEditingControllerMap["login_password"].text;
 
     MyFirebaseAuthManager
         .signInWithEmailAndPassword(email, password)
@@ -119,11 +122,26 @@ class _AuthControllerState extends State<AuthController> implements IAuthControl
   }
 
   @override
-  void register(String email, String password, ProfileData data) {
+  void register() {
     print("REGISTER");
     setState(() {
       _authState = AuthState.LOADING;
     });
+
+    String email =  _authData.textEditingControllerMap["email"].text;
+    String password =  _authData.textEditingControllerMap["password"].text;
+
+    ProfileModel data = ProfileModel(
+      email:  _authData.textEditingControllerMap["email"].text,
+      firstName:  _authData.textEditingControllerMap["firstName"].text,
+      lastName:  _authData.textEditingControllerMap["lastName"].text,
+      postalCode:  _authData.textEditingControllerMap["postalCode"].text,
+      city:  _authData.textEditingControllerMap["city"].text,
+      streetAndNum:  _authData.textEditingControllerMap["streetAndNum"].text,
+      other: _authData.textEditingControllerMap["other"].text,
+      countryCode:  _authData.textEditingControllerMap["countryCode"].text,
+      tel:  _authData.textEditingControllerMap["tel"].text,
+    );
 
     MyFirebaseAuthManager
         .register(email, password, data)
@@ -144,9 +162,9 @@ class _AuthControllerState extends State<AuthController> implements IAuthControl
 abstract class IAuthController {
   void stateChanged();
 
-  void register(String email, String password, ProfileData data);
+  void register();
 
-  void login(String email, String password);
+  void login();
 }
 
 enum AuthState { LOGIN, REGISTER, LOADING}

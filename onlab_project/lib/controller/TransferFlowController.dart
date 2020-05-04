@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/model/TransferFlowData.dart';
+import 'package:onlabproject/page_data/TransferFlowData.dart';
 import 'package:onlabproject/view/ConnectionDataView.dart';
 import 'package:onlabproject/view/DateSelectView.dart';
 import 'package:onlabproject/view/ObjectListView.dart';

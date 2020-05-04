@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/model/ObjectListItemData.dart';
-import 'package:onlabproject/model/TransferFlowData.dart';
+import 'package:onlabproject/model/ObjectItemModel.dart';
+import 'package:onlabproject/page_data/TransferFlowData.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';
@@ -29,9 +29,9 @@ class _ObjectListViewState extends State<ObjectListView> {
   void initState() {
     super.initState();
 
-    widget.data.objectList.add(ObjectListItemData(name: "Kanapé"));
-    widget.data.objectList.add(ObjectListItemData(name: "Ágy", piece: 6));
-    widget.data.objectList.add(ObjectListItemData(name: "ASD", piece: 23));
+    widget.data.objectList.add(ObjectItemModel(name: "Kanapé"));
+    widget.data.objectList.add(ObjectItemModel(name: "Ágy", piece: 6));
+    widget.data.objectList.add(ObjectItemModel(name: "ASD", piece: 23));
 
     _teController.addListener(() {
       if (_teController.text.isEmpty) {

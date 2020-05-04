@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:onlabproject/model/ProfileData.dart';
+import 'package:onlabproject/model/ProfileModel.dart';
 
-class ProfileViewModel {
+class ProfileData {
   Map<String, FocusNode> focusNodeMap = {
     "email": FocusNode(),
     "firstName": FocusNode(),
@@ -26,10 +26,10 @@ class ProfileViewModel {
     "tel": TextEditingController(),
   };
 
-  ProfileData _data;
+  ProfileModel _data;
 
-  ProfileData get data => _data;
-  set data(ProfileData value) {
+  ProfileModel get data => _data;
+  set data(ProfileModel value) {
     _data = value;
 
     textEditingControllerMap["email"].text = value.email;
@@ -43,5 +43,15 @@ class ProfileViewModel {
     textEditingControllerMap["tel"].text = value.tel;
   }
 
-  ProfileViewModel();
+  Map<String, bool> errorMap = {
+    "firstName": false,
+    "lastName": false,
+    "postalCode": false,
+    "city": false,
+    "streetAndNum": false,
+    "countryCode": false,
+    "tel": false,
+  };
+
+  ProfileData();
 }

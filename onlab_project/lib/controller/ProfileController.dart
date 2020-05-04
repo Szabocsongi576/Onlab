@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/controller/ProfileViewModel.dart';
+import 'package:onlabproject/page_data/ProfileData.dart';
 import 'package:onlabproject/firebase/MyFirebaseAuthManager.dart';
-import 'package:onlabproject/firebase/MyFirebaseProfileManager.dart';
-import 'package:onlabproject/model/ProfileData.dart';
+import 'package:onlabproject/firebase/MyFirebaseDatabaseManager.dart';
+import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/view/ProfileView.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 
@@ -14,20 +14,20 @@ class ProfileController extends StatefulWidget {
 
 class _ProfileControllerState extends State<ProfileController> implements IProfileController {
 
-  ProfileViewModel _profileViewModel = ProfileViewModel();
+  ProfileData _data = ProfileData();
 
   ProfileState _profileState = ProfileState.LOADING;
 
   _loadProfileData() async {
-    _profileViewModel.data = await MyFirebaseProfileManager.getProfileData();
+    _data.data = await MyFirebaseDatabaseManager.getProfileData();
 
     setState(() {
       _profileState = ProfileState.PROFILE;
     });
   }
 
-  save(ProfileData data) {
-    MyFirebaseProfileManager.addOrUpdateProfile(data);
+  save(ProfileModel data) {
+    MyFirebaseDatabaseManager.addOrUpdateProfile(data);
   }
 
   @override
@@ -43,7 +43,7 @@ class _ProfileControllerState extends State<ProfileController> implements IProfi
       case ProfileState.PROFILE:
         return ProfileView(
           profileController: this,
-          profileViewModel: _profileViewModel,
+          data: _data,
         );
       default:
         return MyBackground(
@@ -69,7 +69,7 @@ class _ProfileControllerState extends State<ProfileController> implements IProfi
 
 abstract class IProfileController {
   void signOut();
-  save(ProfileData data);
+  save(ProfileModel data);
 }
 
 enum ProfileState { PROFILE, LOADING}

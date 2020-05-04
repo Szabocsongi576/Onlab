@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/model/TransferFlowData.dart';
+import 'package:onlabproject/page_data/TransferFlowData.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 
 import '../Resource/StringResource.dart';
@@ -22,6 +22,14 @@ class _DateSelectViewState extends State<DateSelectView> {
     StringResource.DV_DAY_PERIOD_AM_8_12,
     StringResource.DV_DAY_PERIOD_PM_13_17,
   ];
+
+  _validate() {
+    if(widget.data.selectedDayPeriod.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +152,13 @@ class _DateSelectViewState extends State<DateSelectView> {
             color: Colors.white,
           ),
         ),
-        onPressed: widget.onOfferClaimed,
+        onPressed: () {
+          if(_validate()) {
+            widget.onOfferClaimed();
+          } else {
+            //TODO ERROR snackbar
+          }
+        },
       ),
     );
   }

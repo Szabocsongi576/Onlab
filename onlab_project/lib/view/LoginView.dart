@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/model/AuthData.dart';
+import 'package:onlabproject/page_data/AuthData.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 
@@ -19,18 +19,15 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
 
   _loseFocus() {
-    widget.data.passwordFocus.unfocus();
-    widget.data.emailFocus.unfocus();
+    widget.data.focusNodeMap["login_email"].unfocus();
+    widget.data.focusNodeMap["login_password"].unfocus();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: () {
-          widget.data.emailFocus.unfocus();
-          widget.data.passwordFocus.unfocus();
-        },
+        onTap: _loseFocus,
         child: SingleChildScrollView(
           child: MyBackground(
             child: Center(
@@ -64,8 +61,8 @@ class _LoginViewState extends State<LoginView> {
                       padding: EdgeInsets.fromLTRB(
                           0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.data.emailController,
-                        focusNode: widget.data.emailFocus,
+                        controller: widget.data.textEditingControllerMap["login_email"],
+                        focusNode: widget.data.focusNodeMap["login_email"],
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         keyboardType: TextInputType.emailAddress,
@@ -89,8 +86,8 @@ class _LoginViewState extends State<LoginView> {
                       padding: EdgeInsets.fromLTRB(
                           0, 0, 0, ScreenUtil().setHeight(30)),
                       child: TextField(
-                        controller: widget.data.passwordController,
-                        focusNode: widget.data.passwordFocus,
+                        controller: widget.data.textEditingControllerMap["login_password"],
+                        focusNode: widget.data.focusNodeMap["login_password"],
                         obscureText: true,
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
@@ -159,10 +156,7 @@ class _LoginViewState extends State<LoginView> {
                           print("LoginPressed");
                           _loseFocus();
 
-                          widget.authController.login(
-                            widget.data.emailController.text,
-                            widget.data.passwordController.text,
-                          );
+                          widget.authController.login();
                         },
                       ),
                     ),

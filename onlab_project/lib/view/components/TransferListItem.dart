@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/converter/TransferListItemStateConverter.dart';
-import 'package:onlabproject/model/TransferListItemData.dart';
+import 'package:onlabproject/model/TransferItemModel.dart';
 import 'package:onlabproject/view/OfferView.dart';
 
 class TransferListItem extends StatelessWidget {
-  final TransferListItemData data;
+  final TransferItemModel data;
 
   TransferListItem(this.data);
 

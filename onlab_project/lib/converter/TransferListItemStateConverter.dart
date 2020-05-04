@@ -1,5 +1,5 @@
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/model/TransferListItemData.dart';
+import 'package:onlabproject/model/TransferItemModel.dart';
 
 class TransferListItemStateConverter {
   static String getStringFromEnumValue(TransferListItemState state) {

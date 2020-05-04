@@ -1,11 +1,11 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-class ProfileData {
+class ProfileModel {
   String key;
   String email, firstName, lastName, postalCode, city, streetAndNum, other, countryCode, tel, userId;
 
-  ProfileData({
+  ProfileModel({
     @required this.email,
     @required this.firstName,
     @required this.lastName,
@@ -18,7 +18,7 @@ class ProfileData {
     userId,
 });
 
-  ProfileData.fromSnapshot(DataSnapshot snapshot) :
+  ProfileModel.fromSnapshot(DataSnapshot snapshot) :
         key = snapshot.key,
         userId = snapshot.value["userId"],
         email = snapshot.value["email"],
