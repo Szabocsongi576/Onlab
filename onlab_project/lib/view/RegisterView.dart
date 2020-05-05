@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/controller/AuthController.dart';
 import 'package:onlabproject/page_data/AuthData.dart';
-import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 
@@ -41,7 +40,7 @@ class _RegisterViewState extends State<RegisterView> {
     if(password.length < 6) {
       widget.data.errorMap["password"] = true;
     }
-    if(email.length < 5 && !email.contains("@") && !email.contains(".")) {
+    if(email.length < 5 || !email.contains("@") || !email.contains(".")) {
       widget.data.errorMap["email"] = true;
     }
     if(firstName.length == 0) {
@@ -66,7 +65,60 @@ class _RegisterViewState extends State<RegisterView> {
       widget.data.errorMap["tel"] = true;
     }
 
+    setState(() {});
+
     return widget.data.errorMap.containsValue(true) ? false : true;
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.data.focusNodeMap["email"].addListener(() {
+      if(widget.data.focusNodeMap["email"].hasFocus)
+        widget.data.errorMap["email"] = false;
+    });
+    widget.data.focusNodeMap["password"].addListener(() {
+      if(widget.data.focusNodeMap["password"].hasFocus)
+        widget.data.errorMap["password"] = false;
+    });
+    widget.data.focusNodeMap["firstName"].addListener(() {
+      //if(widget.data.focusNodeMap["firstName"].hasFocus)
+      widget.data.errorMap["firstName"] = false;
+      setState(() { });
+    });
+    widget.data.focusNodeMap["lastName"].addListener(() {
+      if(widget.data.focusNodeMap["lastName"].hasFocus)
+        widget.data.errorMap["lastName"] = false;
+      setState(() { });
+    });
+    widget.data.focusNodeMap["postalCode"].addListener(() {
+      if(widget.data.focusNodeMap["postalCode"].hasFocus)
+        widget.data.errorMap["postalCode"] = false;
+      setState(() { });
+    });
+    widget.data.focusNodeMap["city"].addListener(() {
+      if(widget.data.focusNodeMap["city"].hasFocus)
+        widget.data.errorMap["city"] = false;
+      setState(() { });
+    });
+    widget.data.focusNodeMap["streetAndNum"].addListener(() {
+      if(widget.data.focusNodeMap["streetAndNum"].hasFocus)
+        widget.data.errorMap["streetAndNum"] = false;
+      setState(() { });
+    });
+    widget.data.focusNodeMap["countryCode"].addListener(() {
+      if(widget.data.focusNodeMap["countryCode"].hasFocus)
+        widget.data.errorMap["countryCode"] = false;
+      setState(() { });
+    });
+    widget.data.focusNodeMap["tel"].addListener(() {
+      if(widget.data.focusNodeMap["tel"].hasFocus)
+        widget.data.errorMap["tel"] = false;
+      setState(() { });
+    });
+    //TODO MOBX
   }
 
   @override
@@ -166,6 +218,16 @@ class _RegisterViewState extends State<RegisterView> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
+                            errorText: widget.data.errorMap["email"]
+                                ? StringResource.FORM_FIELD_ERROR_TEXT_EMAIL
+                                : null,
+                            errorStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -190,6 +252,16 @@ class _RegisterViewState extends State<RegisterView> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
+                            errorText: widget.data.errorMap["password"]
+                                ? StringResource.FORM_FIELD_ERROR_TEXT_PASS
+                                : null,
+                            errorStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -213,6 +285,16 @@ class _RegisterViewState extends State<RegisterView> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
+                            errorText: widget.data.errorMap["firstName"]
+                                ? StringResource.FORM_FIELD_ERROR_TEXT
+                                : null,
+                            errorStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -236,6 +318,16 @@ class _RegisterViewState extends State<RegisterView> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
+                            errorText: widget.data.errorMap["lastName"]
+                                ? StringResource.FORM_FIELD_ERROR_TEXT
+                                : null,
+                            errorStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -259,6 +351,16 @@ class _RegisterViewState extends State<RegisterView> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
+                            errorText: widget.data.errorMap["postalCode"]
+                                ? StringResource.FORM_FIELD_ERROR_TEXT
+                                : null,
+                            errorStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -282,6 +384,16 @@ class _RegisterViewState extends State<RegisterView> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
+                            errorText: widget.data.errorMap["city"]
+                                ? StringResource.FORM_FIELD_ERROR_TEXT
+                                : null,
+                            errorStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -305,6 +417,16 @@ class _RegisterViewState extends State<RegisterView> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
+                            errorText: widget.data.errorMap["streetAndNum"]
+                                ? StringResource.FORM_FIELD_ERROR_TEXT
+                                : null,
+                            errorStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -356,6 +478,16 @@ class _RegisterViewState extends State<RegisterView> {
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
+                                  errorText: widget.data.errorMap["countryCode"]
+                                      ? StringResource.FORM_FIELD_ERROR_TEXT_COUNTRY_CODE
+                                      : null,
+                                  errorStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black)),
+                                  focusedErrorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black)),
                                 ),
                               ),
                             ),
@@ -379,6 +511,16 @@ class _RegisterViewState extends State<RegisterView> {
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
+                                  errorText: widget.data.errorMap["tel"]
+                                      ? StringResource.FORM_FIELD_ERROR_TEXT
+                                      : null,
+                                  errorStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black)),
+                                  focusedErrorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black)),
                                 ),
                               ),
                             ),

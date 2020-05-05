@@ -65,8 +65,12 @@ class StringResource {
   static const String DSV_TIME_SELECT_LABEL = "Idősáv";
   static const String DSV_OFFER_CLAIM = "Ajánlat kérése";
 
+  static const String FORM_FIELD_ERROR_TEXT = "A mező kitöltése kötelező";
+  static const String FORM_FIELD_ERROR_TEXT_TEL = "Érvényes telefonszámot adjon meg";
+  static const String FORM_FIELD_ERROR_TEXT_EMAIL = "Érvényes email címet adjon meg";
+  static const String FORM_FIELD_ERROR_TEXT_PASS = "Legalább 6 karakter hosszú jelszó szükséges";
+  static const String FORM_FIELD_ERROR_TEXT_COUNTRY_CODE = "Kötelező";
 
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
   //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
   //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
   //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";

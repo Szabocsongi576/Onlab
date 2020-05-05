@@ -19,15 +19,11 @@ class _ProfileControllerState extends State<ProfileController> implements IProfi
   ProfileState _profileState = ProfileState.LOADING;
 
   _loadProfileData() async {
-    _data.data = await MyFirebaseDatabaseManager.getProfileData();
+    _data.model = await MyFirebaseDatabaseManager.getProfileData();
 
     setState(() {
       _profileState = ProfileState.PROFILE;
     });
-  }
-
-  save(ProfileModel data) {
-    MyFirebaseDatabaseManager.addOrUpdateProfile(data);
   }
 
   @override
@@ -57,6 +53,23 @@ class _ProfileControllerState extends State<ProfileController> implements IProfi
   }
 
   @override
+  void save() {
+    ProfileModel data = ProfileModel(
+      email:  _data.textEditingControllerMap["email"].text,
+      firstName:  _data.textEditingControllerMap["firstName"].text,
+      lastName:  _data.textEditingControllerMap["lastName"].text,
+      postalCode:  _data.textEditingControllerMap["postalCode"].text,
+      city:  _data.textEditingControllerMap["city"].text,
+      streetAndNum:  _data.textEditingControllerMap["streetAndNum"].text,
+      other:  _data.textEditingControllerMap["other"].text,
+      countryCode:  _data.textEditingControllerMap["countryCode"].text,
+      tel: _data.textEditingControllerMap["tel"].text,
+    );
+
+    MyFirebaseDatabaseManager.addOrUpdateProfile(data);
+  }
+
+  @override
   void signOut() {
     MyFirebaseAuthManager.signOut();
 
@@ -69,7 +82,7 @@ class _ProfileControllerState extends State<ProfileController> implements IProfi
 
 abstract class IProfileController {
   void signOut();
-  save(ProfileModel data);
+  void save();
 }
 
 enum ProfileState { PROFILE, LOADING}

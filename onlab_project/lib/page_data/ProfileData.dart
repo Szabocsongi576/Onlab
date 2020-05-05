@@ -26,11 +26,11 @@ class ProfileData {
     "tel": TextEditingController(),
   };
 
-  ProfileModel _data;
+  ProfileModel _model;
 
-  ProfileModel get data => _data;
-  set data(ProfileModel value) {
-    _data = value;
+  ProfileModel get model => _model;
+  set model(ProfileModel value) {
+    _model = value;
 
     textEditingControllerMap["email"].text = value.email;
     textEditingControllerMap["firstName"].text = value.firstName;
