@@ -78,7 +78,7 @@ class _ProfileViewState extends State<ProfileView> {
         widget.data.errorMap["email"] = false;
     });*/
     widget.data.focusNodeMap["firstName"].addListener(() {
-      //if(widget.data.focusNodeMap["firstName"].hasFocus)
+      if(widget.data.focusNodeMap["firstName"].hasFocus)
         widget.data.errorMap["firstName"] = false;
       setState(() { });
     });

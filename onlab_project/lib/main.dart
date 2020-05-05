@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/controller/AuthController.dart';
+import 'package:onlabproject/page_data/MyFormData.dart';
+import 'package:onlabproject/view/components/MyForm.dart';
 
 Future<void> main() async {
   runApp(MyApp());
@@ -25,6 +27,7 @@ class MyHomePage extends StatelessWidget {
         width: 750,
         height: 1500,
         allowFontScaling: true);
-    return AuthController();
+    //return AuthController();
+    return MyForm(data: MyFormData(),);
   }
 }

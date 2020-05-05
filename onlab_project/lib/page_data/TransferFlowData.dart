@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlabproject/model/ObjectItemModel.dart';
+import 'package:onlabproject/page_data/MyFormData.dart';
 
 class TransferFlowData {
   List<ObjectItemModel> objectList = List();
@@ -7,7 +8,9 @@ class TransferFlowData {
   DateTime selectedDate = DateTime.now();
   String selectedDayPeriod;
 
-  Map<String, FocusNode> focusNodeMap = {
+  bool useProfileData = false;
+
+  /*Map<String, FocusNode> focusNodeMap = {
     "email": FocusNode(),
     "firstName": FocusNode(),
     "lastName": FocusNode(),
@@ -48,7 +51,9 @@ class TransferFlowData {
     "tel": false,
 
     "selectedDayPeriod": false,
-  };
+  };*/
+
+  MyFormData formData =  MyFormData();
 
   TransferFlowData();
 }

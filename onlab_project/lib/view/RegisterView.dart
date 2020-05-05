@@ -84,8 +84,8 @@ class _RegisterViewState extends State<RegisterView> {
         widget.data.errorMap["password"] = false;
     });
     widget.data.focusNodeMap["firstName"].addListener(() {
-      //if(widget.data.focusNodeMap["firstName"].hasFocus)
-      widget.data.errorMap["firstName"] = false;
+      if(widget.data.focusNodeMap["firstName"].hasFocus)
+        widget.data.errorMap["firstName"] = false;
       setState(() { });
     });
     widget.data.focusNodeMap["lastName"].addListener(() {

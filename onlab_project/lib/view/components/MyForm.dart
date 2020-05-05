@@ -1,28 +1,92 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/page_data/TransferFlowData.dart';
-import 'package:onlabproject/view/components/MyForm.dart';
+import 'package:flutter_screenutil/screenutil.dart';
+import 'package:onlabproject/Resource/StringResource.dart';
+import 'package:onlabproject/page_data/MyFormData.dart';
 
-import '../Resource/StringResource.dart';
-import 'components/MyBackground.dart';
-import 'components/MyButton.dart';
+class MyForm extends StatefulWidget {
+  final MyFormData data;
+  final bool emailActive;
+  final bool passwordActive;
+  final bool enableFields;
 
-class ConnectionDataView extends StatefulWidget {
-  final TransferFlowData data;
-  final Function onPageChanged;
-
-  const ConnectionDataView({Key key, this.data, this.onPageChanged})
-      : super(key: key);
+  const MyForm({
+    Key key,
+    this.data,
+    this.emailActive = false,
+    this.passwordActive = false,
+    this.enableFields = true,
+  }) : super(key: key);
 
   @override
-  _ConnectionDataViewState createState() => _ConnectionDataViewState();
+  _MyFormState createState() => _MyFormState();
 }
 
-class _ConnectionDataViewState extends State<ConnectionDataView> {
-  /*@override
+class _MyFormState extends State<MyForm> {
+
+  bool validate() {
+    String firstName = widget.data.textEditingControllerMap["firstName"].text;
+    String lastName = widget.data.textEditingControllerMap["lastName"].text;
+    String postalCode = widget.data.textEditingControllerMap["postalCode"].text;
+    String city = widget.data.textEditingControllerMap["city"].text;
+    String streetAndNum = widget.data.textEditingControllerMap["streetAndNum"].text;
+    String countryCode = widget.data.textEditingControllerMap["countryCode"].text;
+    String tel = widget.data.textEditingControllerMap["tel"].text;
+
+    if(widget.passwordActive) {
+      String password = widget.data.textEditingControllerMap["password"].text;
+      if(password.length < 6) {
+        widget.data.errorMap["password"] = true;
+      }
+    }
+    if(widget.emailActive) {
+      String email = widget.data.textEditingControllerMap["email"].text;
+      if(email.length < 5 || !email.contains("@") || !email.contains(".")) {
+        widget.data.errorMap["email"] = true;
+      }
+    }
+    if(firstName.length == 0) {
+      widget.data.errorMap["firstName"] = true;
+    }
+    if(lastName.length == 0) {
+      widget.data.errorMap["lastName"] = true;
+    }
+    if(postalCode.length == 0) {
+      widget.data.errorMap["postalCode"] = true;
+    }
+    if(city.length == 0) {
+      widget.data.errorMap["city"] = true;
+    }
+    if(streetAndNum.length == 0) {
+      widget.data.errorMap["streetAndNum"] = true;
+    }
+    if(countryCode.length == 0) {
+      widget.data.errorMap["countryCode"] = true;
+    }
+    if(tel.length < 6) {
+      widget.data.errorMap["tel"] = true;
+    }
+
+    setState(() {});
+
+    return widget.data.errorMap.containsValue(true) ? false : true;
+  }
+
+  @override
   void initState() {
     super.initState();
 
+    /*if(widget.emailActive) {
+      widget.data.focusNodeMap["email"].addListener(() {
+        if(widget.data.focusNodeMap["email"].hasFocus)
+          widget.data.errorMap["email"] = false;
+      });
+    }
+    if(widget.passwordActive) {
+      widget.data.focusNodeMap["password"].addListener(() {
+        if(widget.data.focusNodeMap["password"].hasFocus)
+          widget.data.errorMap["password"] = false;
+      });
+    }
     widget.data.focusNodeMap["firstName"].addListener(() {
       if(widget.data.focusNodeMap["firstName"].hasFocus)
         widget.data.errorMap["firstName"] = false;
@@ -58,114 +122,96 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
         widget.data.errorMap["tel"] = false;
       setState(() { });
     });
-    //TODO MOBX
-  }*/
-
-  MyForm _form;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _form = MyForm(
-      data: widget.data.formData,
-      enableFields: !widget.data.useProfileData,
-    );
-  }
-
-  _nextPage() {
-    /*if(_form.validate()) {
-      widget.onPageChanged();
-    }*/
+    //TODO MOBX*/
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      body: MyBackground(
-        child: Center(
-          child: Container(
-            width: ScreenUtil().setWidth(600),
-            height: ScreenUtil.screenHeightDp,
-            child: SingleChildScrollView(
+    return Container(
+      child: GestureDetector(
+        onTap: () {
+          widget.data.focusNodeMap.forEach((key, value) =>  value.unfocus());
+        },
+        child: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              width: ScreenUtil().setWidth(600),
               child: Column(
                 children: <Widget>[
-                  /*SizedBox(
-                    height: ScreenUtil.statusBarHeight + ScreenUtil().setHeight(40),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/left-arrow.png",
-                          width: ScreenUtil().setHeight(55),
-                          height: ScreenUtil().setHeight(55),
+                  widget.emailActive
+                      ? Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
+                    child: TextField(
+                      controller: widget.data.textEditingControllerMap["email"],
+                      focusNode: widget.data.focusNodeMap["email"],
+                      style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.emailAddress,
+                      enabled: widget.enableFields,
+                      decoration: InputDecoration(
+                        labelText: StringResource.REGISTER_EMAIL_LABEL,
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: ScreenUtil().setSp(30, allowFontScalingSelf: true),
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }, //TODO
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        errorText: widget.data.errorMap["email"]
+                            ? StringResource.FORM_FIELD_ERROR_TEXT_EMAIL
+                            : null,
+                        errorStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
+                        focusedErrorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(5),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        0, 0, 0, ScreenUtil().setHeight(30)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          width: ScreenUtil().setWidth(600),
-                          child: Text(
-                            StringResource.TF1_TITLE,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: ScreenUtil()
-                                  .setSp(60, allowFontScalingSelf: true),
-                              letterSpacing: 1.2,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
-                  ),*/
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Theme(
-                          data: ThemeData(
-                            unselectedWidgetColor: Colors.white,
-                          ),
-                          child: Checkbox(
-                            value: widget.data.useProfileData,
-                            activeColor: Color.fromARGB(255, 255, 115, 0),
-                            checkColor: Colors.white,
-                            onChanged: (bool value) {
-                              setState(() {
-                                widget.data.useProfileData = value;
-                              }); //TODO MOBX
-                            },
-                          ),
+                  )
+                      : Container(),
+                  widget.passwordActive
+                    ? Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
+                    child: TextField(
+                      controller: widget.data.textEditingControllerMap["password"],
+                      focusNode: widget.data.focusNodeMap["password"],
+                      style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      enabled: widget.enableFields,
+                      decoration: InputDecoration(
+                        labelText: StringResource.REGISTER_PASSWORD_LABEL,
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: ScreenUtil().setSp(30, allowFontScalingSelf: true),
                         ),
-                        Text(
-                          StringResource.CDV_USE_PROFILE_DATA_CB_TEXT,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: ScreenUtil()
-                                  .setSp(35, allowFontScalingSelf: true)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
                         ),
-                      ],
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        errorText: widget.data.errorMap["password"]
+                            ? StringResource.FORM_FIELD_ERROR_TEXT_PASS
+                            : null,
+                        errorStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
+                        focusedErrorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
+                      ),
                     ),
-                  ),
-
-                  /*Padding(
+                  )
+                    : Container(),
+                  Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: TextField(
                       controller: widget.data.textEditingControllerMap["firstName"],
@@ -173,7 +219,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      enabled: !widget.data.useProfileData,
+                      enabled: widget.enableFields,
                       decoration: InputDecoration(
                         labelText: StringResource.REGISTER_FIRST_NAME_LABEL,
                         labelStyle: TextStyle(
@@ -186,7 +232,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        errorText: !widget.data.useProfileData && widget.data.errorMap["firstName"]
+                        errorText: widget.data.errorMap["firstName"]
                             ? StringResource.FORM_FIELD_ERROR_TEXT
                             : null,
                         errorStyle: TextStyle(
@@ -207,7 +253,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      enabled: !widget.data.useProfileData,
+                      enabled: widget.enableFields,
                       decoration: InputDecoration(
                         labelText: StringResource.REGISTER_LAST_NAME_LABEL,
                         labelStyle: TextStyle(
@@ -220,7 +266,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        errorText: !widget.data.useProfileData && widget.data.errorMap["lastName"]
+                        errorText: widget.data.errorMap["lastName"]
                             ? StringResource.FORM_FIELD_ERROR_TEXT
                             : null,
                         errorStyle: TextStyle(
@@ -241,7 +287,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.number,
-                      enabled: !widget.data.useProfileData,
+                      enabled: widget.enableFields,
                       decoration: InputDecoration(
                         labelText: StringResource.REGISTER_POSTAL_CODE_LABEL,
                         labelStyle: TextStyle(
@@ -254,7 +300,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        errorText: !widget.data.useProfileData && widget.data.errorMap["postalCode"]
+                        errorText: widget.data.errorMap["postalCode"]
                             ? StringResource.FORM_FIELD_ERROR_TEXT
                             : null,
                         errorStyle: TextStyle(
@@ -275,7 +321,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      enabled: !widget.data.useProfileData,
+                      enabled: widget.enableFields,
                       decoration: InputDecoration(
                         labelText: StringResource.REGISTER_CITY_LABEL,
                         labelStyle: TextStyle(
@@ -288,7 +334,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        errorText: !widget.data.useProfileData && widget.data.errorMap["city"]
+                        errorText: widget.data.errorMap["city"]
                             ? StringResource.FORM_FIELD_ERROR_TEXT
                             : null,
                         errorStyle: TextStyle(
@@ -309,7 +355,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      enabled: !widget.data.useProfileData,
+                      enabled: widget.enableFields,
                       decoration: InputDecoration(
                         labelText: StringResource.REGISTER_STREET_AND_NUM_LABEL,
                         labelStyle: TextStyle(
@@ -322,7 +368,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        errorText: !widget.data.useProfileData && widget.data.errorMap["streetAndNum"]
+                        errorText: widget.data.errorMap["streetAndNum"]
                             ? StringResource.FORM_FIELD_ERROR_TEXT
                             : null,
                         errorStyle: TextStyle(
@@ -343,7 +389,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      enabled: !widget.data.useProfileData,
+                      enabled: widget.enableFields,
                       decoration: InputDecoration(
                         labelText: StringResource.REGISTER_OTHER_LABEL,
                         labelStyle: TextStyle(
@@ -372,7 +418,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                             style: TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
                             keyboardType: TextInputType.phone,
-                            enabled: !widget.data.useProfileData,
+                            enabled: widget.enableFields,
                             decoration: InputDecoration(
                               labelText: StringResource.REGISTER_COUNTRY_CODE_LABEL,
                               labelStyle: TextStyle(
@@ -385,7 +431,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
                               ),
-                              errorText: !widget.data.useProfileData && widget.data.errorMap["countryCode"]
+                              errorText: widget.data.errorMap["countryCode"]
                                   ? StringResource.FORM_FIELD_ERROR_TEXT_COUNTRY_CODE
                                   : null,
                               errorStyle: TextStyle(
@@ -406,6 +452,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                             style: TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
                             keyboardType: TextInputType.phone,
+                            enabled: widget.enableFields,
                             decoration: InputDecoration(
                               labelText: StringResource.REGISTER_TEL_LABEL,
                               labelStyle: TextStyle(
@@ -419,7 +466,7 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                                 borderSide: BorderSide(color: Colors.white),
                               ),
                               errorText: widget.data.errorMap["tel"]
-                                  ? StringResource.FORM_FIELD_ERROR_TEXT_TEL
+                                  ? StringResource.FORM_FIELD_ERROR_TEXT
                                   : null,
                               errorStyle: TextStyle(
                                 color: Colors.black,
@@ -432,25 +479,6 @@ class _ConnectionDataViewState extends State<ConnectionDataView> {
                           ),
                         ),
                       ],
-                    ),
-                  ),*/
-
-                  _form,
-
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        0, 0, 0, ScreenUtil().setHeight(50)),
-                    child: MyButton(
-                      width: ScreenUtil().setWidth(400),
-                      text: Text(
-                        StringResource.TF_NEXT_PAGE_BUTTON_TEXT,
-                        style: TextStyle(
-                          fontSize: ScreenUtil()
-                              .setSp(40, allowFontScalingSelf: true),
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: _nextPage,
                     ),
                   ),
                 ],
