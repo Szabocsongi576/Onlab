@@ -6,18 +6,6 @@ part 'MyFormData.g.dart';
 class MyFormData = _MyFormData with _$MyFormData;
 
 abstract class _MyFormData with Store{
-  Map<String, bool> errorMap = {
-    "password": false,
-    "email": false,
-    "firstName": false,
-    "lastName": false,
-    "postalCode": false,
-    "city": false,
-    "streetAndNum": false,
-    "countryCode": false,
-    "tel": false,
-  };
-
   @observable
   String password;
 
@@ -74,82 +62,151 @@ abstract class _MyFormData with Store{
   };
 
   @observable
-  bool passwordError;
+  bool passwordError = false;
 
   @observable
-  bool emailError;
+  bool emailError = false;
 
   @observable
-  bool firstNameError;
+  bool firstNameError = false;
 
   @observable
-  bool lastNameError;
+  bool lastNameError = false;
 
   @observable
-  bool postalCodeError;
+  bool postalCodeError = false;
 
   @observable
-  bool cityError;
+  bool cityError = false;
 
   @observable
-  bool streetAndNumError;
+  bool streetAndNumError = false;
 
   @observable
-  bool countryCodeError;
+  bool countryCodeError = false;
 
   @observable
-  bool telError;
+  bool telError = false;
 
-  _MyFormData() {
+  void reset() {
+    textEditingControllerMap.forEach((k, v) => v.clear());
+
+    passwordError = false;
+    emailError = false;
+    firstNameError = false;
+    lastNameError = false;
+    postalCodeError = false;
+    cityError = false;
+    streetAndNumError = false;
+    countryCodeError = false;
+    telError = false;
+  }
+
+  void _registerListeners() {
     textEditingControllerMap["password"].addListener(() {
-      (textEditingControllerMap["password"].text.length == 0)
+      passwordError = false;
+      (textEditingControllerMap["password"].text.isEmpty)
         ? password = ""
         : password = textEditingControllerMap["password"].text;
     });
     textEditingControllerMap["email"].addListener(() {
-      (textEditingControllerMap["email"].text.length == 0)
+      emailError = false;
+      (textEditingControllerMap["email"].text.isEmpty)
           ? email = ""
           : email = textEditingControllerMap["email"].text;
     });
     textEditingControllerMap["firstName"].addListener(() {
-      (textEditingControllerMap["firstName"].text.length == 0)
+      firstNameError = false;
+      (textEditingControllerMap["firstName"].text.isEmpty)
           ? firstName = ""
           : firstName = textEditingControllerMap["firstName"].text;
     });
     textEditingControllerMap["lastName"].addListener(() {
-      (textEditingControllerMap["lastName"].text.length == 0)
+      lastNameError = false;
+      (textEditingControllerMap["lastName"].text.isEmpty)
           ? lastName = ""
           : lastName = textEditingControllerMap["lastName"].text;
     });
     textEditingControllerMap["postalCode"].addListener(() {
-      (textEditingControllerMap["postalCode"].text.length == 0)
+      postalCodeError = false;
+      (textEditingControllerMap["postalCode"].text.isEmpty)
           ? postalCode = ""
           : postalCode = textEditingControllerMap["postalCode"].text;
     });
     textEditingControllerMap["city"].addListener(() {
-      (textEditingControllerMap["city"].text.length == 0)
+      cityError = false;
+      (textEditingControllerMap["city"].text.isEmpty)
           ? city = ""
           : city = textEditingControllerMap["city"].text;
     });
     textEditingControllerMap["streetAndNum"].addListener(() {
-      (textEditingControllerMap["streetAndNum"].text.length == 0)
+      streetAndNumError = false;
+      (textEditingControllerMap["streetAndNum"].text.isEmpty)
           ? streetAndNum = ""
           : streetAndNum = textEditingControllerMap["streetAndNum"].text;
     });
     textEditingControllerMap["other"].addListener(() {
-      (textEditingControllerMap["other"].text.length == 0)
+      (textEditingControllerMap["other"].text.isEmpty)
           ? other = ""
           : other = textEditingControllerMap["other"].text;
     });
     textEditingControllerMap["countryCode"].addListener(() {
-      (textEditingControllerMap["countryCode"].text.length == 0)
+      countryCodeError = false;
+      (textEditingControllerMap["countryCode"].text.isEmpty)
           ? countryCode = ""
           : countryCode = textEditingControllerMap["countryCode"].text;
     });
     textEditingControllerMap["tel"].addListener(() {
-      (textEditingControllerMap["tel"].text.length == 0)
+      telError = false;
+      (textEditingControllerMap["tel"].text.isEmpty)
           ? tel = ""
           : tel = textEditingControllerMap["tel"].text;
     });
+  }
+
+  bool isError() {
+    return emailError || passwordError || firstNameError || lastNameError
+        || postalCodeError || cityError || streetAndNumError
+        || countryCodeError || telError;
+  }
+
+  bool validate() {
+    if(email == null || email.length < 5 || !(email.contains("@") && email.contains("."))) {
+      emailError = true;
+    }
+    if(password == null || password.length < 6) {
+      passwordError = true;
+    }
+    if(firstName == null || firstName.length == 0) {
+      firstNameError = true;
+    }
+    if(lastName == null || lastName.length == 0) {
+      lastNameError = true;
+    }
+    if(postalCode == null || postalCode.length == 0) {
+      postalCodeError = true;
+    }
+    if(city == null || city.length == 0) {
+      cityError = true;
+    }
+    if(streetAndNum == null || streetAndNum.length == 0) {
+      streetAndNumError = true;
+    }
+    if(countryCode == null || countryCode.length == 0) {
+      countryCodeError = true;
+    }
+    if(tel == null || tel.length < 6) {
+      telError = true;
+    }
+
+    return !isError();
+  }
+
+  void loseFocus() {
+    focusNodeMap.forEach((key, value) =>  value.unfocus());
+  }
+
+  _MyFormData() {
+    _registerListeners();
   }
 }
