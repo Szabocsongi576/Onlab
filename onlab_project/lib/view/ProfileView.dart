@@ -3,33 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/controller/AuthController.dart';
 import 'package:onlabproject/controller/ProfileController.dart';
-import 'package:onlabproject/page_data/ProfileData.dart';
+import 'package:onlabproject/page_data/MyFormData.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
+import 'package:onlabproject/view/components/MyForm.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';
 
-class ProfileView extends StatefulWidget {
+class ProfileView extends StatelessWidget {
   final IProfileController profileController;
-  final ProfileData data;
+  //final ProfileData data;
+  final MyFormData formData;
 
-  const ProfileView({Key key, this.profileController, this.data}) : super(key: key);
-
-  @override
-  _ProfileViewState createState() => _ProfileViewState();
-}
-
-class _ProfileViewState extends State<ProfileView> {
+  const ProfileView({
+    Key key,
+    this.profileController,
+    this.formData}) : super(key: key);
 
   _save() {
-    if(_validate()) {
-      widget.profileController.save();
+    if(formData.validate()) {
+      profileController.save();
     } else {
       //TODO ERROR snackbar
     }
   }
 
-  bool _validate() {
+  /*bool _validate() {
     String email = widget.data.textEditingControllerMap["email"].text;
     String firstName = widget.data.textEditingControllerMap["firstName"].text;
     String lastName = widget.data.textEditingControllerMap["lastName"].text;
@@ -67,10 +66,10 @@ class _ProfileViewState extends State<ProfileView> {
     setState(() {});
 
     return widget.data.errorMap.containsValue(true) ? false : true;
-  }
+  }*/
 
 
-  @override
+  /*@override
   void initState() {
     super.initState();
     /*widget.data.focusNodeMap["email"].addListener(() {
@@ -113,16 +112,14 @@ class _ProfileViewState extends State<ProfileView> {
       setState(() { });
     });
     //TODO MOBX
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: GestureDetector(
-        onTap: () {
-          widget.data.focusNodeMap.forEach((k, v) => v.unfocus());
-        },
+        onTap: formData.loseFocus,
         child: MyBackground(
           child: Center(
               child: Container(
@@ -174,7 +171,7 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                       ),
 
-                      Padding(
+                      /*Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
                           controller: widget.data.textEditingControllerMap["firstName"],
@@ -459,6 +456,12 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                       ),*/ //TODO email edit
+                      */
+
+                      MyForm(
+                        data: formData,
+                      ),
+
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(80)),
                         child: MyButton(
@@ -472,7 +475,7 @@ class _ProfileViewState extends State<ProfileView> {
                               color: Colors.white,
                             ),
                           ),
-                          onPressed: (){ _save(); },
+                          onPressed: _save,
                         ),
                       ),
                     ],

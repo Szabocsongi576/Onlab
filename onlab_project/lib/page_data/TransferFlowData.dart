@@ -1,59 +1,23 @@
-import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'package:onlabproject/model/ObjectItemModel.dart';
 import 'package:onlabproject/page_data/MyFormData.dart';
 
-class TransferFlowData {
+part 'TransferFlowData.g.dart';
+
+class TransferFlowData = _TransferFlowData with _$TransferFlowData;
+
+abstract class _TransferFlowData with Store {
   List<ObjectItemModel> objectList = List();
 
   DateTime selectedDate = DateTime.now();
   String selectedDayPeriod;
 
+  @observable
   bool useProfileData = false;
-
-  /*Map<String, FocusNode> focusNodeMap = {
-    "email": FocusNode(),
-    "firstName": FocusNode(),
-    "lastName": FocusNode(),
-    "postalCode": FocusNode(),
-    "city": FocusNode(),
-    "streetAndNum": FocusNode(),
-    "other": FocusNode(),
-    "countryCode": FocusNode(),
-    "tel": FocusNode(),
-
-    "objectName": FocusNode(),
-    "pieceOfObject": FocusNode(),
-  };
-  Map<String, TextEditingController> textEditingControllerMap = {
-    "email": TextEditingController(),
-    "firstName": TextEditingController(),
-    "lastName": TextEditingController(),
-    "postalCode": TextEditingController(),
-    "city": TextEditingController(),
-    "streetAndNum": TextEditingController(),
-    "other": TextEditingController(),
-    "countryCode": TextEditingController(),
-    "tel": TextEditingController(),
-
-    "objectName": TextEditingController(),
-    "pieceOfObject": TextEditingController(),
-  };
-
-  Map<String, bool> errorMap = {
-    "email": false,
-    "firstName": false,
-    "lastName": false,
-    "postalCode": false,
-    "city": false,
-    "streetAndNum": false,
-    "other": false,
-    "countryCode": false,
-    "tel": false,
-
-    "selectedDayPeriod": false,
-  };*/
 
   MyFormData formData =  MyFormData();
 
-  TransferFlowData();
+  _TransferFlowData() {
+    reaction((_) => useProfileData, (_) => formData.reset());
+  }
 }

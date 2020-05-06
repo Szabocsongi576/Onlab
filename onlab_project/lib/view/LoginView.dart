@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/page_data/AuthData.dart';
+import 'package:onlabproject/page_data/LoginData.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
+import 'package:onlabproject/view/components/MyTextField.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends StatelessWidget {
   final IAuthController authController;
-  final AuthData data;
+  final LoginData data;
 
   const LoginView({Key key, this.authController, this.data}) : super(key: key);
-
-  @override
-  _LoginViewState createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
-
-  _loseFocus() {
-    widget.data.focusNodeMap["login_email"].unfocus();
-    widget.data.focusNodeMap["login_password"].unfocus();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: _loseFocus,
+        onTap: data.loseFocus,
         child: SingleChildScrollView(
           child: MyBackground(
             child: Center(
@@ -60,52 +51,20 @@ class _LoginViewState extends State<LoginView> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(
                           0, 0, 0, ScreenUtil().setHeight(30)),
-                      child: TextField(
-                        controller: widget.data.textEditingControllerMap["login_email"],
-                        focusNode: widget.data.focusNodeMap["login_email"],
-                        style: TextStyle(color: Colors.white),
-                        cursorColor: Colors.white,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: StringResource.LOGIN_EMAIL_LABEL,
-                          labelStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: ScreenUtil()
-                                .setSp(30, allowFontScalingSelf: true),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
+                      child: MyTextField(
+                        controller: data.emailController,
+                        focusNode: data.emailFocus,
+                        labelText: StringResource.LOGIN_EMAIL_LABEL,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(
                           0, 0, 0, ScreenUtil().setHeight(30)),
-                      child: TextField(
-                        controller: widget.data.textEditingControllerMap["login_password"],
-                        focusNode: widget.data.focusNodeMap["login_password"],
+                      child: MyTextField(
+                        controller: data.passwordController,
+                        focusNode: data.passwordFocus,
                         obscureText: true,
-                        style: TextStyle(color: Colors.white),
-                        cursorColor: Colors.white,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          labelText: StringResource.LOGIN_PASSWORD_LABEL,
-                          labelStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: ScreenUtil()
-                                .setSp(30, allowFontScalingSelf: true),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
+                        labelText: StringResource.LOGIN_PASSWORD_LABEL,
                       ),
                     ),
                     Padding(
@@ -121,19 +80,19 @@ class _LoginViewState extends State<LoginView> {
                                 fontSize: ScreenUtil()
                                     .setSp(30, allowFontScalingSelf: true)),
                           ),
-                          Theme(
-                            data: ThemeData(
-                              unselectedWidgetColor: Colors.white,
-                            ),
-                            child: Checkbox(
-                              value: widget.data.rememberMe,
-                              activeColor: Color.fromARGB(255, 255, 115, 0),
-                              checkColor: Colors.white,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  widget.data.rememberMe = value;
-                                }); //TODO MOBX
-                              },
+                          Observer(
+                            builder: (_) => Theme(
+                              data: ThemeData(
+                                unselectedWidgetColor: Colors.white,
+                              ),
+                              child: Checkbox(
+                                value: data.rememberMe,
+                                activeColor: Color.fromARGB(255, 255, 115, 0),
+                                checkColor: Colors.white,
+                                onChanged: (value) {
+                                  data.rememberMe = value;
+                                },
+                              ),
                             ),
                           ),
                         ],
@@ -154,9 +113,9 @@ class _LoginViewState extends State<LoginView> {
                         width: ScreenUtil().setWidth(450),
                         onPressed: () {
                           print("LoginPressed");
-                          _loseFocus();
+                          data.loseFocus();
 
-                          widget.authController.login();
+                          authController.login();
                         },
                       ),
                     ),
@@ -174,12 +133,8 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         width: ScreenUtil().setWidth(450),
                         onPressed: () {
-                          /*Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Register()),
-                          );*/
-                          _loseFocus();
-                          widget.authController.stateChanged();
+                          data.loseFocus();
+                          authController.stateChanged();
                         },
                       ),
                     ),

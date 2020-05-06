@@ -27,7 +27,6 @@ class MyHomePage extends StatelessWidget {
         width: 750,
         height: 1500,
         allowFontScaling: true);
-    //return AuthController();
-    return MyForm(data: MyFormData(),);
+    return AuthController();
   }
 }
