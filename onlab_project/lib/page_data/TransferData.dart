@@ -1,9 +1,19 @@
+import 'package:mobx/mobx.dart';
+import 'package:onlabproject/controller/TransferController.dart';
+
 import '../model/TransferItemModel.dart';
 
-class TransferData {
+part 'TransferData.g.dart';
+
+class TransferData = _TransferData with _$TransferData;
+
+abstract class _TransferData with Store {
   List<TransferItemModel> transferList = List<TransferItemModel>();
 
-  TransferData(){
+  @observable
+  TransferState state = TransferState.LOADING;
+
+/*TransferData(){
     transferList.add(TransferItemModel(
       address: "asd",
       date: DateTime.now(),
@@ -24,7 +34,5 @@ class TransferData {
       date: DateTime.now(),
       state: TransferListItemState.UNDER_TRANSFER,
     ));
-  }
-
-
+  }*/
 }

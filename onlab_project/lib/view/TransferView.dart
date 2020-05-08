@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/controller/TransferFlowController.dart';
+import 'package:onlabproject/model/TransferItemModel.dart';
 import 'package:onlabproject/page_data/TransferData.dart';
 
 import '../Resource/StringResource.dart';
@@ -9,20 +10,10 @@ import 'components/MyBackground.dart';
 import 'components/MyButton.dart';
 import 'components/TransferListItem.dart';
 
-class TransferView extends StatefulWidget {
-  @override
-  _TransferViewState createState() => _TransferViewState();
-}
+class TransferView extends StatelessWidget {
+  final List<TransferItemModel> list;
 
-class _TransferViewState extends State<TransferView> {
-  TransferData _transferViewModel = TransferData();
-
-
-  @override
-  void initState() {
-    super.initState();
-
-  }
+  const TransferView({Key key, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +51,10 @@ class _TransferViewState extends State<TransferView> {
                     child: ListView.builder(
                       primary: false,
                       shrinkWrap: true,
-                      itemCount: _transferViewModel.transferList.length,
+                      itemCount: list.length,
                       itemBuilder: (context, index) => Padding(
                         padding: EdgeInsets.all(ScreenUtil().setHeight(15)),
-                        child: TransferListItem(_transferViewModel.transferList[index]),
+                        child: TransferListItem(list[index]),
                       ),
                     ),
                   ),
