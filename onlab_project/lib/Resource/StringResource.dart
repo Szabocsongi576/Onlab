@@ -57,10 +57,11 @@ class StringResource {
   static const String TF_NEXT_PAGE_BUTTON_TEXT = "Következő";
   static const String OLV_OBJECT_NAME_LABEL = "Tárgy neve";
   static const String OLV_PIECE_OF_OBJECT_LABEL = "Darabszám";
+  static const String OLV_ADD_TO_LIST_BUTTON_TEXT = "Hozzáadás";
   static const String OLV_LIST_ITEM_NAME = "Név: ";
   static const String OLV_LIST_ITEM_PIECE = "Darabszám: ";
-  static const String DV_DAY_PERIOD_AM_8_12 = "Délelőtt, 8 és 12 óra között";
-  static const String DV_DAY_PERIOD_PM_13_17 = "Délután, 13 és 17 óra között";
+  static const String DV_DAY_INTERVAL_AM_8_12 = "Délelőtt, 8 és 12 óra között";
+  static const String DV_DAY_INTERVAL_PM_13_17 = "Délután, 13 és 17 óra között";
   static const String DSV_TITLE = "Dátum és idősáv";
   static const String DSV_TIME_SELECT_LABEL = "Idősáv";
   static const String DSV_OFFER_CLAIM = "Ajánlat kérése";
@@ -71,12 +72,13 @@ class StringResource {
   static const String FORM_FIELD_ERROR_TEXT_PASS = "Legalább 6 karakter hosszú jelszó szükséges";
   static const String FORM_FIELD_ERROR_TEXT_COUNTRY_CODE = "Kötelező";
 
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
+  static const String IMG_LOAD_DIALOG_TITLE = "Válasszon az alábbi opciók közül!";
+  static const String CAMERA_DISPLAY_TEXT = "Kamera";
+  static const String GALLERY_DISPLAY_TEXT = "Galéria";
+  static const String CAMERA = "camera";
+  static const String GALLERY = "gallery";
+  static const String SELECTION_LIMIT_REACHED = "Egyszerre csak egy kép választható";
+
   //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
 
 }

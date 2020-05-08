@@ -8,6 +8,7 @@ import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/firebase/MyFirebaseAuthManager.dart';
 import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/view/TabView.dart';
+import 'package:onlabproject/view/components/LoadingPage.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 
 class AuthController extends StatefulWidget {
@@ -69,13 +70,7 @@ class _AuthControllerState extends State<AuthController> implements IAuthControl
           data: _registerData,
         );
       default:
-        return MyBackground(
-          child: Center(
-            child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.white),
-            ),
-          ),
-        );
+        return LoadingPage();
     }
   }
 

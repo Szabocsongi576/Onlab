@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/controller/ContactController.dart';
 import 'package:onlabproject/controller/ProfileController.dart';
+import 'package:onlabproject/controller/TransferController.dart';
 
 import 'ContactView.dart';
 import 'TransferView.dart';
@@ -63,7 +64,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
           body: TabBarView(
             controller: _tabController,
             children: [
-              TransferView(),
+              TransferController(),
               ContactController(),
               ProfileController(),
             ],

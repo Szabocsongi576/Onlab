@@ -1,141 +1,146 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/page_data/TransferFlowData.dart';
+import 'package:onlabproject/page_data/DateSelectData.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
+import 'package:onlabproject/view/components/TransferFlowPage.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../Resource/StringResource.dart';
-import 'components/MyBackground.dart';
 
-class DateSelectView extends StatefulWidget {
+class DateSelectView extends StatelessWidget {
   final Function onOfferClaimed;
-  final TransferFlowData data;
+  final Function onPreviousPage;
+  final DateSelectData data;
 
-  const DateSelectView({Key key, this.onOfferClaimed, this.data}) : super(key: key);
-
-  @override
-  _DateSelectViewState createState() => _DateSelectViewState();
-}
-
-class _DateSelectViewState extends State<DateSelectView> {
-  List<String> _dayPeriodList = [
-    StringResource.DV_DAY_PERIOD_AM_8_12,
-    StringResource.DV_DAY_PERIOD_PM_13_17,
-  ];
-
-  _validate() {
-    if(widget.data.selectedDayPeriod.length == 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  DateSelectView(
+      {Key key,
+      @required this.onOfferClaimed,
+      @required this.data,
+      @required this.onPreviousPage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      body: MyBackground(
-        child: Center(
-          child: Container(
-            width: ScreenUtil().setWidth(600),
-            height: ScreenUtil.screenHeightDp,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  _buildDatePicker(),
-                  _buildDayPeriodSelect(),
-                  _buildOfferClaim(),
-                ],
-              ),
-            ),
+    return TransferFlowPage(
+      title: StringResource.DSV_TITLE,
+      onBackArrowTap: onPreviousPage,
+      pageIndex: 2,
+      isLastPage: true,
+      child: Container(
+        width: ScreenUtil().setWidth(600),
+        height: ScreenUtil.screenHeightDp,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              _buildDatePicker(context),
+              _buildDayPeriodSelect(context),
+              _buildOfferClaim(),
+            ],
           ),
         ),
       ),
     );
   }
 
-  _buildDatePicker() {
+  _buildDatePicker(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(30)),
       child: Container(
-        color: Colors.white,
-        child: dp.DayPicker(
-          selectedDate: widget.data.selectedDate,
-          onChanged: (newDate) {
-            setState(() {
-              widget.data.selectedDate = newDate;
-            });
+        width: ScreenUtil().setWidth(610),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black54,
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(2, 2), // changes position of shadow
+            ),
+          ],
+        ),
+        child: TableCalendar(
+          calendarController: data.calendarController,
+          initialSelectedDay: DateTime.now(),
+          startDay: data.selectedDate,
+          onDaySelected: (date, _) {
+            data.selectedDate = date;
           },
-          datePickerStyles: dp.DatePickerRangeStyles(
-              selectedDateStyle: Theme.of(context)
-                  .accentTextTheme
-                  .body2
-                  .copyWith(color: Colors.white),
-              selectedSingleDateDecoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 115, 0),
-                  shape: BoxShape.circle,
-              ),
+          availableCalendarFormats: {
+            CalendarFormat.month: 'Month',
+          },
+          startingDayOfWeek: StartingDayOfWeek.monday,
+          headerStyle: data.headerStyle,
+          daysOfWeekStyle: data.daysOfWeekStyle,
+          calendarStyle: CalendarStyle(
+            todayColor: Colors.transparent,
+            todayStyle: const TextStyle(color: Colors.black),
+            selectedColor: const Color.fromARGB(255, 255, 115, 0),
+            selectedStyle: const TextStyle(color: Colors.white),
+            weekendStyle: const TextStyle(color: Colors.black),
+            weekdayStyle: const TextStyle(color: Colors.black),
+            outsideWeekendStyle: const TextStyle(color: const Color(0xFF9E9E9E)),
           ),
-          firstDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
-          lastDate: DateTime.now().add(Duration(days: 365)),
         ),
       ),
+      //),
     );
   }
 
-  _buildDayPeriodSelect() {
+  _buildDayPeriodSelect(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                StringResource.DSV_TIME_SELECT_LABEL,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: ScreenUtil()
-                      .setSp(25, allowFontScalingSelf: true),
-                ),
-              ),
-            ],
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(20)),
+      child: Observer(
+        builder: (_) => Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Color.fromARGB(255, 255, 115, 0),
           ),
-          Theme(
-            data: Theme.of(context).copyWith(
-              canvasColor: Color.fromARGB(255, 255, 115, 0),
+          child: DropdownButtonFormField<String>(
+            value: data.selectedInterval,
+            isExpanded: true,
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.white,
             ),
-            child: DropdownButton<String>(
-              value: widget.data.selectedDayPeriod,
-              isExpanded: true,
-              //itemHeight: ScreenUtil().setHeight(100),
-              icon: Icon(Icons.keyboard_arrow_down, color: Colors.white,),
-              iconSize: 24,
-              elevation: 16,
-              style: TextStyle(
-                  color: Colors.white,
-              ),
-              underline: Container(
-                height: 2,
+            iconSize: 24,
+            elevation: 16,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+            decoration: InputDecoration(
+              labelText: StringResource.DSV_TIME_SELECT_LABEL,
+              labelStyle: TextStyle(
                 color: Colors.white,
+                fontSize: ScreenUtil().setSp(35, allowFontScalingSelf: true),
               ),
-              onChanged: (String newValue) {
-                setState(() {
-                  widget.data.selectedDayPeriod = newValue;
-                });
-              },
-              items: _dayPeriodList
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              })
-                  .toList(),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              errorText: data.selectedIntervalError ? StringResource.FORM_FIELD_ERROR_TEXT : null,
+              errorStyle: TextStyle(
+                color: Colors.black,
+              ),
+              errorBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+              focusedErrorBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             ),
+            onChanged: (String newValue) {
+              data.selectedInterval = newValue;
+              data.selectedIntervalError = false;
+            },
+            items: data.intervalList
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -153,10 +158,8 @@ class _DateSelectViewState extends State<DateSelectView> {
           ),
         ),
         onPressed: () {
-          if(_validate()) {
-            widget.onOfferClaimed();
-          } else {
-            //TODO ERROR snackbar
+          if (data.validate()) {
+            onOfferClaimed();
           }
         },
       ),

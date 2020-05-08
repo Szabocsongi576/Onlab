@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:onlabproject/model/ProfileModel.dart';
 
 part 'MyFormData.g.dart';
 
@@ -204,6 +205,20 @@ abstract class _MyFormData with Store{
 
   void loseFocus() {
     focusNodeMap.forEach((key, value) =>  value.unfocus());
+  }
+
+  ProfileModel getProfileModel() {
+    return ProfileModel(
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      postalCode: postalCode,
+      city: city,
+      streetAndNum: streetAndNum,
+      other: other,
+      countryCode: countryCode,
+      tel: tel,
+    );
   }
 
   _MyFormData() {

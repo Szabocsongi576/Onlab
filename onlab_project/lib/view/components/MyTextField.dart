@@ -9,6 +9,8 @@ class MyTextField extends StatelessWidget {
   final bool obscureText;
   final String labelText;
   final String errorText;
+  final TextInputType keyboardType;
+  final int maxLines;
 
 
   const MyTextField({
@@ -18,7 +20,9 @@ class MyTextField extends StatelessWidget {
     this.enabled = true,
     this.isError = false,
     this.obscureText = false,
-    @required this.labelText,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
+    this.labelText,
     this.errorText}) : super(key: key);
 
   @override
@@ -28,11 +32,12 @@ class MyTextField extends StatelessWidget {
       focusNode: focusNode,
       style: TextStyle(color: Colors.white),
       cursorColor: Colors.white,
-      keyboardType: TextInputType.text,
+      keyboardType: keyboardType,
+      maxLines: maxLines,
       enabled: enabled,
       obscureText: obscureText,
       decoration: InputDecoration(
-        labelText: labelText,
+        labelText: labelText ?? labelText,
         labelStyle: TextStyle(
           color: Colors.white,
           fontSize: ScreenUtil().setSp(30, allowFontScalingSelf: true),

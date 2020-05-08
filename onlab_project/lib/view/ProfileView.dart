@@ -170,7 +170,6 @@ class ProfileView extends StatelessWidget {
                           ],
                         ),
                       ),
-
                       /*Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                         child: TextField(
@@ -457,11 +456,9 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),*/ //TODO email edit
                       */
-
                       MyForm(
                         data: formData,
                       ),
-
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(80)),
                         child: MyButton(

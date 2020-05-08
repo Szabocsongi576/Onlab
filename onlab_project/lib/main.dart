@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/page_data/MyFormData.dart';
-import 'package:onlabproject/view/components/MyForm.dart';
 
-Future<void> main() async {
+void main() {
   runApp(MyApp());
 }
 
