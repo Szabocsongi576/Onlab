@@ -2,8 +2,17 @@ class StringResource {
   static const String STORAGE_E_KEY = "EMAIL_KEY";
   static const String STORAGE_PW_KEY = "PASSWORD_KEY";
 
+  // ignore: non_constant_identifier_names
+  static String SNACK_LAUNCH_ERROR(String name) => "A(z) $name indítása sikertelen.";
+  static const String SNACK_REGISTER_FAILED = "A regisztráció sikertelen.";
+  static const String SNACK_LOGIN_USER_NOT_FOUND = "A felhasználó nem található.";
+  static const String SNACK_LOGIN_NETWORK_ERROR = "A belépés időtúllépés, vagy egyéb hálózati okok miatt meghiúsult.";
+  static const String SNACK_LOGIN_PASSWORD_NOT_VALID = "Hibás jelszó.";
+  static const String SNACK_LOGIN_FAILED = "Belépés sikertelen.";
+  static const String SNACK_INVALID_DATA = "Ellenőrizze a mezők tartalmát!";
+
   static const String TRANSFER_LIST_ITEM_OFFER_CLAIM_SENT = "Ajánlatkérés elküldve";
-  static const String TRANSFER_LIST_ITEM_OFFER_VIEW = "Ajánlat megtekintése";
+  static const String TRANSFER_LIST_ITEM_OFFER_VIEW = "Az ajánlat elfogadásra vár";
   static const String TRANSFER_LIST_ITEM_UNDER_TRANSFER = "Elszállítás alatt";
   static const String TRANSFER_LIST_ITEM_DONE = "Kész";
 
@@ -32,24 +41,22 @@ class StringResource {
 
   static const String CONTACT_TITLE = "Kapcsolat";
   static const String CONTACT_DESC = "Amennyiben kérdése akadna, vagy valamilyen probléma adódna, vegye fel felünk a kapcsolatot!";
-  static const String CONTACT_EMAIL = "info@milcomp.hu";
+  static const String CONTACT_EMAIL = "info@housemoving.hu";
   static const String CONTACT_TEL1 = "+36 20 123 4567";
   static const String CONTACT_TEL2 = "+36 30 123 4567";
-  static const String CONTACT_FB = "facebook.com/milcompweb/";
+  static const String CONTACT_FB = "facebook.com/housemovingweb/";
 
-  static const String PROFILE_TITLE = "Beállítások";
+  static const String PROFILE_TITLE = "Profil";
   static const String PROFILE_SAVE_BUTTON_TEXT = "Mentés";
-  //static const String PROFILE_a = "facebook.com/milcompweb/";
-  //static const String PROFILE_s = "facebook.com/milcompweb/";
 
-  static const String OFFER_TITLE = "Ajánlat";
+  static const String TRANSFER_DETAILS_TITLE = "Ajánlat";
   static const String OFFER_ADDR = "Cím:";
   static const String OFFER_DATE = "Dátum:";
   static const String OFFER_TIME = "Időpont:";
   static const String OFFER_DESC = "Leírás";
   static const String OFFER_PRICE = "Árajánlat:";
   static const String OFFER_ACCEPT_BUTTON_TEXT = "Elfogadás";
-  static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
+  static const String OFFER_DENY_BUTTON_TEXT = "Elutasítás";
 
   static const String CDV_TITLE = "Kapcsolattartási adatok";
   static const String CDV_USE_PROFILE_DATA_CB_TEXT = "Profil adatok használata";
@@ -79,6 +86,6 @@ class StringResource {
   static const String GALLERY = "gallery";
   static const String SELECTION_LIMIT_REACHED = "Egyszerre csak egy kép választható";
 
-  //static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
+//static const String OFFER_DENIE_BUTTON_TEXT = "Elutasítás";
 
 }

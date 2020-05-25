@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:onlabproject/converter/TransferListItemStateConverter.dart';
+import 'package:onlabproject/service/TransferListItemConvertService.dart';
 import 'package:onlabproject/model/TransferItemModel.dart';
-import 'package:onlabproject/view/OfferView.dart';
 
 class TransferListItem extends StatelessWidget {
   final TransferItemModel data;
@@ -12,82 +11,78 @@ class TransferListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => OfferView(data: data)),
-        );
-      },
-      child: Container(
-        width: ScreenUtil().setWidth(600),
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 220, 200),
-          borderRadius:
-              BorderRadius.all(Radius.circular(ScreenUtil().setWidth(20))),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(ScreenUtil().setWidth(30)),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Cím:  " + data.address,
-                      style: TextStyle(
-                        fontSize:
-                            ScreenUtil().setSp(40, allowFontScalingSelf: true),
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(50)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Dátum:  " + data.date.toString().split(" ")[0],
-                      style: TextStyle(
-                        fontSize:
-                            ScreenUtil().setSp(30, allowFontScalingSelf: true),
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: FlatButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(ScreenUtil().setWidth(15)),
-                        side: BorderSide(color: Colors.black)),
-                    onPressed: () {}, //TODO
+    return Container(
+      width: ScreenUtil().setWidth(600),
+      decoration: BoxDecoration(
+        border: Border.all(width: 1),
+        color: Color.fromARGB(255, 255, 220, 200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black54,
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(2, 2), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: Padding(
+              padding: EdgeInsets.all(ScreenUtil().setWidth(30)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Text(
-                      TransferListItemStateConverter.getStringFromEnumValue(
-                          data.state),
+                      data.address,
                       style: TextStyle(
-                        fontSize:
-                            ScreenUtil().setSp(40, allowFontScalingSelf: true),
+                        fontSize: ScreenUtil()
+                            .setSp(40, allowFontScalingSelf: true),
                         color: Colors.black,
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text(
+                      data.date.toString().split(" ")[0] +
+                          "\n" +
+                          data.timeInterval,
+                      style: TextStyle(
+                        fontSize: ScreenUtil()
+                            .setSp(30, allowFontScalingSelf: true),
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            color: TransferListItemConvertService.getSStatusBarColorByState(
+                data.state),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: ScreenUtil().setWidth(30),
+                  vertical: ScreenUtil().setHeight(20)),
+              child: Text(
+                TransferListItemConvertService.getStringFromEnumValue(data.state),
+                style: TextStyle(
+                  fontSize:
+                      ScreenUtil().setSp(30, allowFontScalingSelf: true),
+                  fontWeight: FontWeight.bold,
+                  color: TransferListItemConvertService
+                      .getSStatusBarTextColorByState(data.state),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

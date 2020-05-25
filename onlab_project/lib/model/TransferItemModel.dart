@@ -1,11 +1,9 @@
-import 'dart:convert';
-
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:onlabproject/model/ObjectItemModel.dart';
+import 'package:onlabproject/service/TransferListItemConvertService.dart';
 
 class TransferItemModel {
-  String key;
+  String id;
 
   final TransferListItemState state;
   final String description;
@@ -21,6 +19,7 @@ class TransferItemModel {
   final String timeInterval;
 
   TransferItemModel({
+    this.id,
     this.state = TransferListItemState.OFFER_CLAIM_SENT,
     this.description,
     this.price,
@@ -32,34 +31,25 @@ class TransferItemModel {
     @required this.timeInterval,
   });
 
-  TransferItemModel.fromSnapshot(dynamic snapshotValue)
-      : state = _getStateById(snapshotValue["state"]),
+  TransferItemModel.fromSnapshot(dynamic id, dynamic snapshotValue)
+      : id = id,
+        state = TransferListItemConvertService.getStateByStateId(snapshotValue["state"]),
         description = snapshotValue["description"] ?? snapshotValue["description"],
         price = snapshotValue["price"] ?? snapshotValue["price"],
         address = snapshotValue["address"],
         name = snapshotValue["name"],
         tel = snapshotValue["tel"],
-        objectList = _getObjectListFromSnapshot(snapshotValue["objectList"]), //TODO
+        objectList = _getObjectListFromSnapshot(snapshotValue["objectList"]),
         date = DateTime.fromMillisecondsSinceEpoch(snapshotValue["date"]),
         timeInterval = snapshotValue["timeInterval"];
 
-  static TransferListItemState _getStateById(int snapshotId) {
-    switch (snapshotId) {
-      case 0:
-        return TransferListItemState.OFFER_CLAIM_SENT;
-      case 1:
-        return TransferListItemState.OFFER_RECEIVED;
-      case 2:
-        return TransferListItemState.UNDER_TRANSFER;
-      default:
-        return TransferListItemState.DONE;
-    }
-  }
-
-  static List<ObjectItemModel> _getObjectListFromSnapshot(dynamic snapshot) {
+  static List<ObjectItemModel> _getObjectListFromSnapshot(Map<dynamic, dynamic> snapshotValue) {
     List<ObjectItemModel> list = List<ObjectItemModel>();
-    for(var item in snapshot) {
-      list.add(ObjectItemModel.fromSnapshot(item));
+
+    if(snapshotValue != null) {
+      snapshotValue.forEach((key, values) {
+        list.add(ObjectItemModel.fromSnapshot(key, values));
+      });
     }
 
     return list;
@@ -95,7 +85,6 @@ class TransferItemModel {
       "address": address,
       "name": name,
       "tel": tel,
-      "objectList": objectListJson,
       "date": date.millisecondsSinceEpoch,
       "timeInterval": timeInterval,
     };
