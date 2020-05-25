@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/page_data/MyFormData.dart';
+import 'package:onlabproject/page_data/MyFormViewModel.dart';
 import 'package:onlabproject/view/components/MyTextField.dart';
 
 class MyForm extends StatelessWidget {
-  final MyFormData data;
+  final MyFormViewModel viewModel;
   final bool emailActive;
   final bool passwordActive;
   final bool enableFields;
 
   const MyForm({
     Key key,
-    @required this.data,
+    @required this.viewModel,
     this.emailActive = false,
     this.passwordActive = false,
     this.enableFields = true,
@@ -24,7 +24,7 @@ class MyForm extends StatelessWidget {
     return Container(
       child: GestureDetector(
         onTap: () {
-          data.focusNodeMap.forEach((key, value) =>  value.unfocus());
+          viewModel.focusNodeMap.forEach((key, value) =>  value.unfocus());
         },
         child: SingleChildScrollView(
           child: Center(
@@ -37,10 +37,10 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["email"],
-                        focusNode: data.focusNodeMap["email"],
+                        controller: viewModel.textEditingControllerMap["email"],
+                        focusNode: viewModel.focusNodeMap["email"],
                         enabled: enableFields,
-                        isError: data.emailError,
+                        isError: viewModel.emailError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT_EMAIL,
                         labelText: StringResource.REGISTER_EMAIL_LABEL,
                       ),
@@ -52,10 +52,10 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["password"],
-                        focusNode: data.focusNodeMap["password"],
+                        controller: viewModel.textEditingControllerMap["password"],
+                        focusNode: viewModel.focusNodeMap["password"],
                         enabled: enableFields,
-                        isError: data.passwordError,
+                        isError: viewModel.passwordError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT_PASS,
                         labelText: StringResource.REGISTER_PASSWORD_LABEL,
                       ),
@@ -66,10 +66,10 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["firstName"],
-                        focusNode: data.focusNodeMap["firstName"],
+                        controller: viewModel.textEditingControllerMap["firstName"],
+                        focusNode: viewModel.focusNodeMap["firstName"],
                         enabled: enableFields,
-                        isError: data.firstNameError,
+                        isError: viewModel.firstNameError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT,
                         labelText: StringResource.REGISTER_FIRST_NAME_LABEL,
                       ),
@@ -79,10 +79,10 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["lastName"],
-                        focusNode: data.focusNodeMap["lastName"],
+                        controller: viewModel.textEditingControllerMap["lastName"],
+                        focusNode: viewModel.focusNodeMap["lastName"],
                         enabled: enableFields,
-                        isError: data.lastNameError,
+                        isError: viewModel.lastNameError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT,
                         labelText: StringResource.REGISTER_LAST_NAME_LABEL,
                       ),
@@ -92,10 +92,10 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["postalCode"],
-                        focusNode: data.focusNodeMap["postalCode"],
+                        controller: viewModel.textEditingControllerMap["postalCode"],
+                        focusNode: viewModel.focusNodeMap["postalCode"],
                         enabled: enableFields,
-                        isError: data.postalCodeError,
+                        isError: viewModel.postalCodeError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT,
                         labelText: StringResource.REGISTER_POSTAL_CODE_LABEL,
                       ),
@@ -105,10 +105,10 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["city"],
-                        focusNode: data.focusNodeMap["city"],
+                        controller: viewModel.textEditingControllerMap["city"],
+                        focusNode: viewModel.focusNodeMap["city"],
                         enabled: enableFields,
-                        isError: data.cityError,
+                        isError: viewModel.cityError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT,
                         labelText: StringResource.REGISTER_CITY_LABEL,
                       ),
@@ -118,10 +118,10 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["streetAndNum"],
-                        focusNode: data.focusNodeMap["streetAndNum"],
+                        controller: viewModel.textEditingControllerMap["streetAndNum"],
+                        focusNode: viewModel.focusNodeMap["streetAndNum"],
                         enabled: enableFields,
-                        isError: data.streetAndNumError,
+                        isError: viewModel.streetAndNumError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT,
                         labelText: StringResource.REGISTER_STREET_AND_NUM_LABEL,
                       ),
@@ -131,8 +131,8 @@ class MyForm extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Observer(
                       builder: (_) => MyTextField(
-                        controller: data.textEditingControllerMap["other"],
-                        focusNode: data.focusNodeMap["other"],
+                        controller: viewModel.textEditingControllerMap["other"],
+                        focusNode: viewModel.focusNodeMap["other"],
                         enabled: enableFields,
                         labelText: StringResource.REGISTER_OTHER_LABEL,
                       ),
@@ -147,10 +147,10 @@ class MyForm extends StatelessWidget {
                           width: ScreenUtil().setWidth(190),
                           child: Observer(
                               builder: (_) => MyTextField(
-                                controller: data.textEditingControllerMap["countryCode"],
-                                focusNode: data.focusNodeMap["countryCode"],
+                                controller: viewModel.textEditingControllerMap["countryCode"],
+                                focusNode: viewModel.focusNodeMap["countryCode"],
                                 enabled: enableFields,
-                                isError: data.countryCodeError,
+                                isError: viewModel.countryCodeError,
                                 errorText: StringResource.FORM_FIELD_ERROR_TEXT_COUNTRY_CODE,
                                 labelText: StringResource.REGISTER_COUNTRY_CODE_LABEL,
                               ),
@@ -160,10 +160,10 @@ class MyForm extends StatelessWidget {
                           width: ScreenUtil().setWidth(390),
                           child: Observer(
                             builder: (_) => MyTextField(
-                              controller: data.textEditingControllerMap["tel"],
-                              focusNode: data.focusNodeMap["tel"],
+                              controller: viewModel.textEditingControllerMap["tel"],
+                              focusNode: viewModel.focusNodeMap["tel"],
                               enabled: enableFields,
-                              isError: data.telError,
+                              isError: viewModel.telError,
                               errorText: StringResource.FORM_FIELD_ERROR_TEXT,
                               labelText: StringResource.REGISTER_TEL_LABEL,
                           ),

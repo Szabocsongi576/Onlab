@@ -12,5 +12,4 @@ class LoadingPage extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 
-class MyImageLoadManager {
+class MyImageLoadService {
 
   static Future<File> loadImage(String dialogResult) async {
     var source;

@@ -3,12 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/controller/ContactController.dart';
 import 'package:onlabproject/controller/ProfileController.dart';
 import 'package:onlabproject/controller/TransferController.dart';
-
-import 'ContactView.dart';
-import 'TransferView.dart';
+import 'package:onlabproject/view/ContactView.dart';
 
 class TabView extends StatefulWidget {
   @override
@@ -65,7 +62,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
             controller: _tabController,
             children: [
               TransferController(),
-              ContactController(),
+              ContactView(),
               ProfileController(),
             ],
           ),
