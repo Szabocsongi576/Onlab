@@ -1,32 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/page_data/MyFormData.dart';
+import 'package:onlabproject/page_data/RegisterViewModel.dart';
+import 'package:onlabproject/view/TabView.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/MyForm.dart';
 
 class RegisterView extends StatelessWidget {
-  final IAuthController authController;
-  final MyFormData data;
+  final Function stateChanged;
+  final RegisterViewModel viewModel;
 
-  const RegisterView({Key key, this.authController, this.data}) : super(key: key);
+  RegisterView({this.viewModel, this.stateChanged});
 
-  _register() {
-    data.loseFocus();
-    if(data.validate()) {
-      authController.register();
+  _register(BuildContext context) async {
+    viewModel.formViewModel.loseFocus();
+    if(viewModel.formViewModel.validate()) {
+      bool succeed = await viewModel.register();
+      if (succeed) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => TabView()),
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text(StringResource.SNACK_REGISTER_FAILED)));
+      }
     } else {
-      //TODO ERROR snackbar
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(StringResource.SNACK_INVALID_DATA)));
     }
+  }
+
+  _changeState() {
+    viewModel.formViewModel.loseFocus();
+    stateChanged();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: data.loseFocus,
+        onTap: viewModel.formViewModel.loseFocus,
         child: SingleChildScrollView(
           child: MyBackground(
             child: SingleChildScrollView(
@@ -44,10 +57,7 @@ class RegisterView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             GestureDetector(
-                              onTap: () {
-                                data.loseFocus();
-                                authController.stateChanged();
-                              },
+                              onTap: _changeState,
                               child: Container(
                                 width: ScreenUtil().setWidth(60),
                                 height: ScreenUtil().setWidth(60),
@@ -75,7 +85,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       MyForm(
-                        data: data,
+                        viewModel: viewModel.formViewModel,
                         emailActive: true,
                         passwordActive: true,
                       ),
@@ -91,7 +101,7 @@ class RegisterView extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          onPressed: _register
+                          onPressed: () { _register(context); },
                         ),
                       ),
                       Padding(
@@ -99,7 +109,7 @@ class RegisterView extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.center,
                           child: Image.asset(
-                            "assets/logo_milcomp.png",
+                            "assets/ic_icon.png",
                             width: ScreenUtil().setWidth(250),
                             height: ScreenUtil().setWidth(250),
                           ),

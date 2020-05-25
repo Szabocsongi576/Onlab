@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:onlabproject/model/ProfileModel.dart';
 
-part 'MyFormData.g.dart';
+part 'MyFormViewModel.g.dart';
 
-class MyFormData = _MyFormData with _$MyFormData;
+class MyFormViewModel = _MyFormViewModel with _$MyFormViewModel;
 
-abstract class _MyFormData with Store{
+abstract class _MyFormViewModel with Store{
   @observable
   String password;
 
@@ -221,7 +221,7 @@ abstract class _MyFormData with Store{
     );
   }
 
-  _MyFormData() {
+  _MyFormViewModel() {
     _registerListeners();
   }
 }

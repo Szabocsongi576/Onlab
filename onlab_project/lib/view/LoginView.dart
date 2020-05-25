@@ -2,23 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/page_data/LoginData.dart';
+import 'package:onlabproject/page_data/LoginViewModel.dart';
+import 'package:onlabproject/service/firebase/MyFirebaseAuthService.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/MyTextField.dart';
 
-class LoginView extends StatelessWidget {
-  final IAuthController authController;
-  final LoginData data;
+import 'TabView.dart';
 
-  const LoginView({Key key, this.authController, this.data}) : super(key: key);
+class LoginView extends StatelessWidget {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final Function stateChanged;
+  final LoginViewModel viewModel;
+
+  LoginView({Key key, this.stateChanged, this.viewModel}) : super(key: key);
+
+  void changeState() {
+    viewModel.loseFocus();
+    stateChanged();
+  }
+
+  Future<void> login(BuildContext context) async {
+    viewModel.loseFocus();
+
+    switch(await viewModel.login()) {
+      case AuthResponse.LoggedIn:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => TabView()),
+        );
+        break;
+      case AuthResponse.NetworkError:
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text(StringResource.SNACK_LOGIN_NETWORK_ERROR)));
+        break;
+      case AuthResponse.PasswordNotValid:
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text(StringResource.SNACK_LOGIN_PASSWORD_NOT_VALID)));
+        break;
+      case AuthResponse.UserNotFound:
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text(StringResource.SNACK_LOGIN_USER_NOT_FOUND)));
+        break;
+      default:
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text(StringResource.SNACK_LOGIN_FAILED)));
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: data.loseFocus,
+        onTap: viewModel.loseFocus,
         child: SingleChildScrollView(
           child: MyBackground(
             child: Center(
@@ -52,8 +89,8 @@ class LoginView extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(
                           0, 0, 0, ScreenUtil().setHeight(30)),
                       child: MyTextField(
-                        controller: data.emailController,
-                        focusNode: data.emailFocus,
+                        controller: viewModel.emailController,
+                        focusNode: viewModel.emailFocus,
                         labelText: StringResource.LOGIN_EMAIL_LABEL,
                       ),
                     ),
@@ -61,8 +98,8 @@ class LoginView extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(
                           0, 0, 0, ScreenUtil().setHeight(30)),
                       child: MyTextField(
-                        controller: data.passwordController,
-                        focusNode: data.passwordFocus,
+                        controller: viewModel.passwordController,
+                        focusNode: viewModel.passwordFocus,
                         obscureText: true,
                         labelText: StringResource.LOGIN_PASSWORD_LABEL,
                       ),
@@ -86,11 +123,11 @@ class LoginView extends StatelessWidget {
                                 unselectedWidgetColor: Colors.white,
                               ),
                               child: Checkbox(
-                                value: data.rememberMe,
+                                value: viewModel.rememberMe,
                                 activeColor: Color.fromARGB(255, 255, 115, 0),
                                 checkColor: Colors.white,
                                 onChanged: (value) {
-                                  data.rememberMe = value;
+                                  viewModel.rememberMe = value;
                                 },
                               ),
                             ),
@@ -111,12 +148,7 @@ class LoginView extends StatelessWidget {
                           ),
                         ),
                         width: ScreenUtil().setWidth(450),
-                        onPressed: () {
-                          print("LoginPressed");
-                          data.loseFocus();
-
-                          authController.login();
-                        },
+                        onPressed: () { login(context); },
                       ),
                     ),
                     Padding(
@@ -132,10 +164,7 @@ class LoginView extends StatelessWidget {
                           ),
                         ),
                         width: ScreenUtil().setWidth(450),
-                        onPressed: () {
-                          data.loseFocus();
-                          authController.stateChanged();
-                        },
+                        onPressed: changeState,
                       ),
                     ),
                     Padding(
