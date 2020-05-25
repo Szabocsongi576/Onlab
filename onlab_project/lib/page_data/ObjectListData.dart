@@ -10,6 +10,7 @@ class ObjectListData = _ObjectListData with _$ObjectListData;
 
 abstract class _ObjectListData with Store {
   ObservableList<ObjectItemModel> objectList = ObservableList<ObjectItemModel>();
+  ObservableList<File> images = ObservableList<File>();
 
   @observable
   File image;
@@ -28,10 +29,10 @@ abstract class _ObjectListData with Store {
 
   void addListItem() {
     if(_validate()) {
+      images.add(image);
       objectList.add(ObjectItemModel(
           name: objectName,
           piece: piece,
-          image: image
       ));
       _reset();
     }
@@ -39,6 +40,7 @@ abstract class _ObjectListData with Store {
 
   void removeListItem(int index) {
     objectList.removeAt(index);
+    images.removeAt(index);
   }
 
   void _reset() {
@@ -61,12 +63,7 @@ abstract class _ObjectListData with Store {
       } else {
         objectName = controller.text;
         objectNameError = false;
-        print(objectNameError);
       }
     });
-
-    objectList.add(ObjectItemModel(name: "Kanapé"));
-    objectList.add(ObjectItemModel(name: "Ágyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", piece: 6));
-    objectList.add(ObjectItemModel(name: "aaaaaaaaa sssssssss ddddddddd", piece: 23));
   }
 }

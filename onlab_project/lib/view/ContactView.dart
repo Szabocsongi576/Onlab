@@ -2,16 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:onlabproject/controller/ContactController.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';
 
 class ContactView extends StatelessWidget {
-  final IContactController controller;
-
-  const ContactView({Key key, this.controller}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +82,7 @@ class ContactView extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        this.controller.launchEmail(StringResource.CONTACT_EMAIL);
+                        launch("mailto:" + StringResource.CONTACT_EMAIL, forceSafariVC: false);
                       },
                     ),
                   ),
@@ -118,7 +114,7 @@ class ContactView extends StatelessWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  this.controller.launchPhone(StringResource.CONTACT_TEL1);
+                                  launch("tel:" + StringResource.CONTACT_TEL1, forceSafariVC: false);
                                 },
                             ),
                             SizedBox(
@@ -135,7 +131,7 @@ class ContactView extends StatelessWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  this.controller.launchPhone(StringResource.CONTACT_TEL2);
+                                  launch("tel:" + StringResource.CONTACT_TEL2, forceSafariVC: false);
                                 },
                             ),
                           ],
@@ -170,8 +166,8 @@ class ContactView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onTap: () async {
-                        await controller.launchFacebook(StringResource.CONTACT_FB);
+                      onTap: () {
+                        launch("https://" + StringResource.CONTACT_FB, forceSafariVC: false);
                       },
                     ),
                   ),

@@ -1,29 +1,40 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:onlabproject/model/ObjectItemModel.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ObjectListItemView extends StatelessWidget {
   final ObjectItemModel data;
+  final File image;
   final Function onRemove;
+  final bool imageFromURL;
 
-  const ObjectListItemView({Key key, @required this.data, this.onRemove})
-      : super(key: key);
+  const ObjectListItemView({
+    Key key,
+    @required this.data,
+    this.onRemove,
+    this.image,
+    this.imageFromURL = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil().setWidth(600),
-      //height: ScreenUtil().setHeight(400),
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 255, 220, 200),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black54,
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(2, 2), // changes position of shadow
-          ),
+          (onRemove != null)
+              ? BoxShadow(
+                  color: Colors.black54,
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(2, 2), // changes position of shadow
+                )
+              : BoxShadow(),
         ],
       ),
       child: Padding(
@@ -42,11 +53,32 @@ class ObjectListItemView extends StatelessWidget {
                     width: 1.0,
                   ),
                 ),
-                child: (data.image == null)
-                    ? Center(
-                        child: Icon(Icons.image),
-                      )
-                    : Image.file(data.image),
+                child: Stack(
+                  children: <Widget>[
+                    Center(child: Icon(Icons.image)),
+                    (imageFromURL)
+                        ? Container(
+                            width: ScreenUtil().setWidth(230),
+                            height: ScreenUtil().setHeight(400),
+                            child: FadeInImage.memoryNetwork(
+                              fit: BoxFit.cover,
+                              image: data.imageURL,
+                              placeholder: kTransparentImage,
+                            ),
+                          )
+                        : Container(),
+                    (image != null)
+                        ? Container(
+                            width: ScreenUtil().setWidth(230),
+                            height: ScreenUtil().setHeight(400),
+                            child: Image.file(
+                              image,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -71,13 +103,15 @@ class ObjectListItemView extends StatelessWidget {
                                   .setSp(40, allowFontScalingSelf: true),
                               fontWeight: FontWeight.bold),
                         ),
-                        GestureDetector(
-                          onTap: onRemove,
-                          child: Icon(
-                            Icons.delete,
-                            color: Colors.black,
-                          ),
-                        ),
+                        (onRemove != null)
+                            ? GestureDetector(
+                                onTap: onRemove,
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.black,
+                                ),
+                              )
+                            : Container(),
                       ],
                     ),
                   ),

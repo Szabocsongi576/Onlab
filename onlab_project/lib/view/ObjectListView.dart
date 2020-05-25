@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/view/components/MyTextField.dart';
 import 'package:onlabproject/view/components/TransferFlowPage.dart';
-import 'package:onlabproject/image_load_manager/MyImageLoadManager.dart';
+import 'package:onlabproject/service/MyImageLoadService.dart';
 import 'package:onlabproject/page_data/ObjectListData.dart';
 import 'package:onlabproject/view/components/CameraGalleryDialog.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
@@ -28,9 +28,7 @@ class ObjectListView extends StatelessWidget {
         builder: (BuildContext context) {
           return CameraGalleryDialog();
         });
-    data.image = await MyImageLoadManager.loadImage(dialogResult);
-
-    //TODO Firebase upload
+    data.image = await MyImageLoadService.loadImage(dialogResult);
   }
 
   @override
@@ -51,7 +49,7 @@ class ObjectListView extends StatelessWidget {
     );
   }
 
-  _buildAddObject(BuildContext context) {
+  Widget _buildAddObject(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, ScreenUtil().setHeight(50), 0, 0),
       child: Column(
@@ -95,19 +93,15 @@ class ObjectListView extends StatelessWidget {
                   height: ScreenUtil().setHeight(500),
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              StringResource.OLV_OBJECT_NAME_LABEL,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: ScreenUtil()
-                                    .setSp(25, allowFontScalingSelf: true),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          StringResource.OLV_OBJECT_NAME_LABEL,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: ScreenUtil()
+                                .setSp(25, allowFontScalingSelf: true),
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.fromLTRB(
@@ -119,21 +113,17 @@ class ObjectListView extends StatelessWidget {
                                 isError: data.objectNameError,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 3,
-                                errorText: StringResource.FORM_FIELD_ERROR_TEXT),
+                                errorText:
+                                    StringResource.FORM_FIELD_ERROR_TEXT),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              StringResource.OLV_PIECE_OF_OBJECT_LABEL,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: ScreenUtil()
-                                    .setSp(25, allowFontScalingSelf: true),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          StringResource.OLV_PIECE_OF_OBJECT_LABEL,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: ScreenUtil()
+                                .setSp(25, allowFontScalingSelf: true),
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,6 +208,7 @@ class ObjectListView extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(25)),
             child: ObjectListItemView(
               data: data.objectList[index],
+              image: data.images[index],
               onRemove: () {
                 data.removeListItem(index);
               },

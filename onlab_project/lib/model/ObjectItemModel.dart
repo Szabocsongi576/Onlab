@@ -1,25 +1,24 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class ObjectItemModel {
+  final String id;
   final String name;
   final int piece;
-  final File image;
+  String imageURL;
 
-  ObjectItemModel({@required this.name, this.piece = 1, this.image});
+  ObjectItemModel({this.id, @required this.name, this.piece = 1, this.imageURL});
 
-  ObjectItemModel.fromSnapshot(dynamic snapshotValue)
-      : name = snapshotValue["name"],
+  ObjectItemModel.fromSnapshot(dynamic id, dynamic snapshotValue)
+      : id = id,
+        name = snapshotValue["name"],
         piece = int.parse(snapshotValue["piece"].toString()),
-        image = File.fromRawPath(base64Decode(snapshotValue["image"]));
+        imageURL = snapshotValue["image"];
 
   toJson() {
     return {
       "name": name,
       "piece": piece,
-      "image": (image != null) ? base64Encode(image.readAsBytesSync()) : null,
+      "image": imageURL,
     };
   }
 }

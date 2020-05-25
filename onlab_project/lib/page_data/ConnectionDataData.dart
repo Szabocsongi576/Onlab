@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:onlabproject/page_data/MyFormData.dart';
+
+import 'MyFormViewModel.dart';
 
 part 'ConnectionDataData.g.dart';
 
@@ -9,7 +10,7 @@ abstract class _ConnectionDataData with Store {
   @observable
   bool useProfileData = false;
 
-  MyFormData formData =  MyFormData();
+  MyFormViewModel formData =  MyFormViewModel();
 
   _ConnectionDataData() {
     reaction((_) => useProfileData, (_) => formData.reset());

@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:onlabproject/model/ObjectItemModel.dart';
-import 'package:onlabproject/page_data/MyFormData.dart';
+
+import 'MyFormViewModel.dart';
 
 part 'TransferFlowData.g.dart';
 
@@ -15,7 +16,7 @@ abstract class _TransferFlowData with Store {
   @observable
   bool useProfileData = false;
 
-  MyFormData formData =  MyFormData();
+  MyFormViewModel formData =  MyFormViewModel();
 
   _TransferFlowData() {
     reaction((_) => useProfileData, (_) => formData.reset());

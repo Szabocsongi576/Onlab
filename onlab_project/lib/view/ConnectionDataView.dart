@@ -17,11 +17,11 @@ class ConnectionDataView extends StatelessWidget {
       @required this.onNextPage,
       @required this.onPreviousPage});
 
-  _nextPage() {
+  _nextPage(BuildContext context) {
     if (data.useProfileData || data.formData.validate()) {
       onNextPage();
     } else {
-      //TODO error snackbar
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(StringResource.SNACK_INVALID_DATA)));
     }
   }
 
@@ -30,14 +30,14 @@ class ConnectionDataView extends StatelessWidget {
     return TransferFlowPage(
       title: StringResource.CDV_TITLE,
       onBackArrowTap: onPreviousPage,
-      onForwardArrowTap: _nextPage,
+      onForwardArrowTap:() { _nextPage(context); },
       pageIndex: 0,
       child: Column(
         children: <Widget>[
           _buildUseProfileDataCB(),
           Observer(
             builder: (_) => MyForm(
-              data: data.formData,
+              viewModel: data.formData,
               enableFields: !data.useProfileData,
             ),
           ),

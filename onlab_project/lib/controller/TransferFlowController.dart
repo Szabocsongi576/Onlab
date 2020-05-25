@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:onlabproject/firebase/MyFirebaseAuthManager.dart';
-import 'package:onlabproject/firebase/MyFirebaseDatabaseManager.dart';
 import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/model/TransferItemModel.dart';
 import 'package:onlabproject/page_data/ConnectionDataData.dart';
 import 'package:onlabproject/page_data/DateSelectData.dart';
 import 'package:onlabproject/page_data/ObjectListData.dart';
+import 'package:onlabproject/service/firebase/MyFirebaseDatabaseService.dart';
 import 'package:onlabproject/view/ConnectionDataView.dart';
 import 'package:onlabproject/view/DateSelectView.dart';
 import 'package:onlabproject/view/ObjectListView.dart';
@@ -23,13 +22,12 @@ class TransferFlowController extends StatelessWidget {
     ProfileModel profileModel;
 
     if(_connectionDataData.useProfileData) {
-     profileModel = await MyFirebaseDatabaseManager.getProfileData();
+     profileModel = await MyFirebaseDatabaseService.getProfileData();
     } else {
       profileModel = _connectionDataData.formData.getProfileModel();
     }
 
-    String address = profileModel.postalCode.toString() + ", "
-        + profileModel.city + " " + profileModel.streetAndNum;
+    String address = profileModel.postalCode.toString() + ", " + profileModel.city + " " + profileModel.streetAndNum;
     if(profileModel.other != null)
       address = address +  " " + profileModel.other;
 
@@ -46,7 +44,7 @@ class TransferFlowController extends StatelessWidget {
     );
 
     print(newItem.toJson());
-    MyFirebaseDatabaseManager.addOrUpdateTransferItem(newItem);
+    MyFirebaseDatabaseService.addTransferItem(newItem, _objectListData.images);
   }
 
   @override
@@ -74,9 +72,7 @@ class TransferFlowController extends StatelessWidget {
       data: _dateSelectData,
       onOfferClaimed: () async {
         Navigator.pop(context);
-        print("xdd");
         _uploadNewTransfer();
-        print("xddxdd");
       },
       onPreviousPage: () async {
         await _pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeOut);
