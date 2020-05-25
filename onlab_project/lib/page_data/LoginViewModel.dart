@@ -7,10 +7,13 @@ import '../Resource/StringResource.dart';
 
 part 'LoginViewModel.g.dart';
 
-class LoginViewModel = _LoginViewModel with _$Login_LoginViewModel;
+class LoginViewModel = _LoginViewModel with _$LoginViewModel;
 
 abstract class _LoginViewModel with Store {
    final _storage = FlutterSecureStorage();
+
+   @observable
+   bool loading = false;
 
    @observable
    bool rememberMe = false;
@@ -51,6 +54,8 @@ abstract class _LoginViewModel with Store {
    }
 
    Future<AuthResponse> login() async {
+      loading = true;
+
       String email = emailController.text;
       String password = passwordController.text;
 
@@ -60,6 +65,8 @@ abstract class _LoginViewModel with Store {
       if (response == AuthResponse.LoggedIn) {
          handleStorageData();
       }
+
+      loading = false;
       return response;
    }
 }

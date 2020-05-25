@@ -96,7 +96,6 @@ class TransferFlowPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: ScreenUtil().setWidth(650),
                     child: child,
                   ),
                 ],

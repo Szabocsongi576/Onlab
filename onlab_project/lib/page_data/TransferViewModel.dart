@@ -1,8 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:mobx/mobx.dart';
+import 'package:onlabproject/model/ObjectItemModel.dart';
 import 'package:onlabproject/model/TransferItemModel.dart';
 import 'package:onlabproject/service/TransferListItemConvertService.dart';
 import 'package:onlabproject/service/firebase/MyFirebaseDatabaseService.dart';
+import 'package:onlabproject/service/firebase/MyFirebaseStorageService.dart';
 
 part 'TransferViewModel.g.dart';
 
@@ -17,11 +19,11 @@ abstract class _TransferViewModel with Store {
 
   @action
   void addTransferItem(TransferItemModel newItem) {
-    /*for (var item in transferList) {
+    for (var item in transferList) {
       if(item.id == newItem.id) {
         return;
       }
-    }*/
+    }
 
     transferList.add(newItem);
   }
@@ -51,32 +53,34 @@ abstract class _TransferViewModel with Store {
     loadTransferItems();
   }
 
-  void acceptOffer(String id) {
-    MyFirebaseDatabaseService.updateTransferItemState(id, TransferListItemConvertService.getStateIdByState(TransferListItemState.UNDER_TRANSFER));
+  void acceptOffer(int index) {
+    MyFirebaseDatabaseService.updateTransferItemState(transferList[index].id, TransferListItemConvertService.getStateIdByState(TransferListItemState.UNDER_TRANSFER));
   }
 
-  void denyOffer(String id) {
-    MyFirebaseDatabaseService.removeTransferItem(id);
+  void denyOffer(int index) {
+    MyFirebaseDatabaseService.removeTransferItem(transferList[index].id);
+    transferList[index].objectList.forEach((item) {
+      String imgName = item.imageURL.split("%2F")[1].split("?alt")[0];
+      MyFirebaseStorageService.removeFile(imgName);
+      print(imgName);
+    });
   }
 
   void registerTransferListListeners() {
     MyFirebaseDatabaseService.registerTransferListChildAddedListener((
         Event event) {
-      print("Child Added");
       addTransferItem(TransferItemModel.fromSnapshot(
           event.snapshot.key, event.snapshot.value));
     });
 
     MyFirebaseDatabaseService.registerTransferListChildChangedListener((
         Event event) {
-      print("Child Changed");
       updateTransferItem(TransferItemModel.fromSnapshot(
           event.snapshot.key, event.snapshot.value));
     });
 
     MyFirebaseDatabaseService.registerTransferListChildRemovedListener((
         Event event) {
-      print("Child Removed");
       removeTransferItem(event.snapshot.key);
     });
   }

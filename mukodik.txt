@@ -59,3 +59,37 @@ class _AuthControllerState extends State<AuthController>  {
 }
 
 enum AuthState { LOGIN, REGISTER, LOADING}
+
+----------------------------------------------
+
+import 'package:mobx/mobx.dart';
+import 'package:onlabproject/page_data/LoginViewModel.dart';
+import 'package:onlabproject/page_data/RegisterViewModel.dart';
+
+part 'AuthViewModel.g.dart';
+
+class AuthViewModel = _AuthViewModel with _$AuthViewModel;
+
+abstract class _AuthViewModel with Store {
+  @observable
+  AuthState authState = AuthState.LOADING;
+
+  RegisterViewModel registerViewModel = RegisterViewModel();
+  LoginViewModel loginViewModel = LoginViewModel();
+
+  _AuthViewModel() {
+    loginViewModel.loadFromStorage().then((_) {
+      authState = AuthState.LOGIN;
+    });
+  }
+
+  void stateChanged() {
+    if (authState == AuthState.LOGIN) {
+      authState = AuthState.REGISTER;
+    } else {
+      authState = AuthState.LOGIN;
+    }
+  }
+}
+
+enum AuthState { LOGIN, REGISTER, LOADING}

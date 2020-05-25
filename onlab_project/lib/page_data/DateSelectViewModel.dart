@@ -3,11 +3,11 @@ import 'package:mobx/mobx.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-part 'DateSelectData.g.dart';
+part 'DateSelectViewModel.g.dart';
 
-class DateSelectData = _DateSelectData with _$DateSelectData;
+class DateSelectViewModel = _DateSelectViewModel with _$DateSelectViewModel;
 
-abstract class _DateSelectData with Store {
+abstract class _DateSelectViewModel with Store {
   @observable
   DateTime selectedDate = DateTime.now();
 

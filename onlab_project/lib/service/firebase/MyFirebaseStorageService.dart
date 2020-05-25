@@ -15,4 +15,8 @@ class MyFirebaseStorageService {
     
     return url;
   }
+
+  static Future<void> removeFile(String path) async {
+    await storageReference.child(MyFirebaseAuthService.user.uid).child(basename(path)).delete();
+  }
 }

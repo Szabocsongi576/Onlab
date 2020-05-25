@@ -80,7 +80,7 @@ flutter:
     - assets/baseline_local_shipping_black_18dp.png
     - assets/facebook-3-48.png
     - assets/left-arrow.png
-    - assets/logo_milcomp.png
+    - assets/ic_icon.png
     - assets/logout.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -89,6 +89,8 @@ abstract class _MyFormViewModel with Store{
   @observable
   bool telError = false;
 
+  final bool emailActive, passwordActive;
+
   void reset() {
     textEditingControllerMap.forEach((k, v) => v.clear());
 
@@ -104,18 +106,23 @@ abstract class _MyFormViewModel with Store{
   }
 
   void _registerListeners() {
-    textEditingControllerMap["password"].addListener(() {
-      passwordError = false;
-      (textEditingControllerMap["password"].text.isEmpty)
-        ? password = ""
-        : password = textEditingControllerMap["password"].text;
-    });
-    textEditingControllerMap["email"].addListener(() {
-      emailError = false;
-      (textEditingControllerMap["email"].text.isEmpty)
-          ? email = ""
-          : email = textEditingControllerMap["email"].text;
-    });
+    if(passwordActive) {
+      textEditingControllerMap["password"].addListener(() {
+        passwordError = false;
+        (textEditingControllerMap["password"].text.isEmpty)
+            ? password = ""
+            : password = textEditingControllerMap["password"].text;
+      });
+    }
+    if(emailActive) {
+      textEditingControllerMap["email"].addListener(() {
+        emailError = false;
+        (textEditingControllerMap["email"].text.isEmpty)
+            ? email = ""
+            : email = textEditingControllerMap["email"].text;
+      });
+    }
+
     textEditingControllerMap["firstName"].addListener(() {
       firstNameError = false;
       (textEditingControllerMap["firstName"].text.isEmpty)
@@ -172,10 +179,10 @@ abstract class _MyFormViewModel with Store{
   }
 
   bool validate() {
-    if(email == null || email.length < 5 || !(email.contains("@") && email.contains("."))) {
+    if( emailActive && (email == null || email.length < 5 || !(email.contains("@") && email.contains(".")))) {
       emailError = true;
     }
-    if(password == null || password.length < 6) {
+    if(passwordActive && (password == null || password.length < 6)) {
       passwordError = true;
     }
     if(firstName == null || firstName.length == 0) {
@@ -221,7 +228,10 @@ abstract class _MyFormViewModel with Store{
     );
   }
 
-  _MyFormViewModel() {
+  _MyFormViewModel({
+    this.emailActive = false,
+    this.passwordActive = false,
+  }) {
     _registerListeners();
   }
 }

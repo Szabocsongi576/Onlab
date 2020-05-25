@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/page_data/DateSelectData.dart';
+import 'package:onlabproject/page_data/DateSelectViewModel.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/TransferFlowPage.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -11,12 +11,12 @@ import '../Resource/StringResource.dart';
 class DateSelectView extends StatelessWidget {
   final Function onOfferClaimed;
   final Function onPreviousPage;
-  final DateSelectData data;
+  final DateSelectViewModel viewModel;
 
   DateSelectView(
       {Key key,
       @required this.onOfferClaimed,
-      @required this.data,
+      @required this.viewModel,
       @required this.onPreviousPage})
       : super(key: key);
 
@@ -60,18 +60,18 @@ class DateSelectView extends StatelessWidget {
           ],
         ),
         child: TableCalendar(
-          calendarController: data.calendarController,
+          calendarController: viewModel.calendarController,
           initialSelectedDay: DateTime.now(),
-          startDay: data.selectedDate,
+          startDay: viewModel.selectedDate,
           onDaySelected: (date, _) {
-            data.selectedDate = date;
+            viewModel.selectedDate = date;
           },
           availableCalendarFormats: {
             CalendarFormat.month: 'Month',
           },
           startingDayOfWeek: StartingDayOfWeek.monday,
-          headerStyle: data.headerStyle,
-          daysOfWeekStyle: data.daysOfWeekStyle,
+          headerStyle: viewModel.headerStyle,
+          daysOfWeekStyle: viewModel.daysOfWeekStyle,
           calendarStyle: CalendarStyle(
             todayColor: Colors.transparent,
             todayStyle: const TextStyle(color: Colors.black),
@@ -96,7 +96,7 @@ class DateSelectView extends StatelessWidget {
             canvasColor: Color.fromARGB(255, 255, 115, 0),
           ),
           child: DropdownButtonFormField<String>(
-            value: data.selectedInterval,
+            value: viewModel.selectedInterval,
             isExpanded: true,
             icon: Icon(
               Icons.keyboard_arrow_down,
@@ -119,7 +119,7 @@ class DateSelectView extends StatelessWidget {
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),
-              errorText: data.selectedIntervalError ? StringResource.FORM_FIELD_ERROR_TEXT : null,
+              errorText: viewModel.selectedIntervalError ? StringResource.FORM_FIELD_ERROR_TEXT : null,
               errorStyle: TextStyle(
                 color: Colors.black,
               ),
@@ -129,10 +129,10 @@ class DateSelectView extends StatelessWidget {
               UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             ),
             onChanged: (String newValue) {
-              data.selectedInterval = newValue;
-              data.selectedIntervalError = false;
+              viewModel.selectedInterval = newValue;
+              viewModel.selectedIntervalError = false;
             },
-            items: data.intervalList
+            items: viewModel.intervalList
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -158,7 +158,7 @@ class DateSelectView extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          if (data.validate()) {
+          if (viewModel.validate()) {
             onOfferClaimed();
           }
         },

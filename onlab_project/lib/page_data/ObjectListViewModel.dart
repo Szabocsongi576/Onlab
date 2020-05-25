@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:onlabproject/model/ObjectItemModel.dart';
 
-part 'ObjectListData.g.dart';
+part 'ObjectListViewModel.g.dart';
 
-class ObjectListData = _ObjectListData with _$ObjectListData;
+class ObjectListViewModel = _ObjectListViewModel with _$ObjectListViewModel;
 
-abstract class _ObjectListData with Store {
+abstract class _ObjectListViewModel with Store {
   ObservableList<ObjectItemModel> objectList = ObservableList<ObjectItemModel>();
   ObservableList<File> images = ObservableList<File>();
 
@@ -56,7 +56,7 @@ abstract class _ObjectListData with Store {
     return !objectNameError;
   }
 
-  _ObjectListData() {
+  _ObjectListViewModel() {
     controller.addListener(() {
       if (controller.text.isEmpty) {
         objectName = "";

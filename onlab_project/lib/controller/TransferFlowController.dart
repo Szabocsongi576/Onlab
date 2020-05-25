@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/model/TransferItemModel.dart';
-import 'package:onlabproject/page_data/ConnectionDataData.dart';
-import 'package:onlabproject/page_data/DateSelectData.dart';
-import 'package:onlabproject/page_data/ObjectListData.dart';
+import 'package:onlabproject/page_data/ConnectionDataViewModel.dart';
+import 'package:onlabproject/page_data/DateSelectViewModel.dart';
+import 'package:onlabproject/page_data/ObjectListViewModel.dart';
 import 'package:onlabproject/service/firebase/MyFirebaseDatabaseService.dart';
 import 'package:onlabproject/view/ConnectionDataView.dart';
 import 'package:onlabproject/view/DateSelectView.dart';
@@ -14,9 +14,9 @@ class TransferFlowController extends StatelessWidget {
 
   final _pageController = PageController(initialPage: 0);
 
-  final ConnectionDataData _connectionDataData = ConnectionDataData();
-  final DateSelectData _dateSelectData = DateSelectData();
-  final ObjectListData _objectListData = ObjectListData();
+  final ConnectionDataViewModel _connectionDataData = ConnectionDataViewModel();
+  final DateSelectViewModel _dateSelectData = DateSelectViewModel();
+  final ObjectListViewModel _objectListData = ObjectListViewModel();
 
   Future<void> _uploadNewTransfer() async {
     ProfileModel profileModel;
@@ -24,7 +24,7 @@ class TransferFlowController extends StatelessWidget {
     if(_connectionDataData.useProfileData) {
      profileModel = await MyFirebaseDatabaseService.getProfileData();
     } else {
-      profileModel = _connectionDataData.formData.getProfileModel();
+      profileModel = _connectionDataData.formViewModel.getProfileModel();
     }
 
     String address = profileModel.postalCode.toString() + ", " + profileModel.city + " " + profileModel.streetAndNum;
@@ -60,7 +60,7 @@ class TransferFlowController extends StatelessWidget {
       },
     );
     ObjectListView page2 = ObjectListView(
-      data: _objectListData,
+      viewModel: _objectListData,
       onNextPage: () async {
         await _pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeOut);
       },
@@ -69,7 +69,7 @@ class TransferFlowController extends StatelessWidget {
       },
     );
     DateSelectView page3 = DateSelectView(
-      data: _dateSelectData,
+      viewModel: _dateSelectData,
       onOfferClaimed: () async {
         Navigator.pop(context);
         _uploadNewTransfer();

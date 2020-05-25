@@ -13,37 +13,34 @@ mixin _$TransferViewModel on _TransferViewModel, Store {
 
   @override
   ObservableList<TransferItemModel> get transferList {
-    _$transferListAtom.context.enforceReadPolicy(_$transferListAtom);
-    _$transferListAtom.reportObserved();
+    _$transferListAtom.reportRead();
     return super.transferList;
   }
 
   @override
   set transferList(ObservableList<TransferItemModel> value) {
-    _$transferListAtom.context.conditionallyRunInAction(() {
+    _$transferListAtom.reportWrite(value, super.transferList, () {
       super.transferList = value;
-      _$transferListAtom.reportChanged();
-    }, _$transferListAtom, name: '${_$transferListAtom.name}_set');
+    });
   }
 
   final _$stateAtom = Atom(name: '_TransferViewModel.state');
 
   @override
   TransferState get state {
-    _$stateAtom.context.enforceReadPolicy(_$stateAtom);
-    _$stateAtom.reportObserved();
+    _$stateAtom.reportRead();
     return super.state;
   }
 
   @override
   set state(TransferState value) {
-    _$stateAtom.context.conditionallyRunInAction(() {
+    _$stateAtom.reportWrite(value, super.state, () {
       super.state = value;
-      _$stateAtom.reportChanged();
-    }, _$stateAtom, name: '${_$stateAtom.name}_set');
+    });
   }
 
-  final _$loadTransferItemsAsyncAction = AsyncAction('loadTransferItems');
+  final _$loadTransferItemsAsyncAction =
+      AsyncAction('_TransferViewModel.loadTransferItems');
 
   @override
   Future<void> loadTransferItems() {
@@ -55,7 +52,8 @@ mixin _$TransferViewModel on _TransferViewModel, Store {
 
   @override
   void addTransferItem(TransferItemModel newItem) {
-    final _$actionInfo = _$_TransferViewModelActionController.startAction();
+    final _$actionInfo = _$_TransferViewModelActionController.startAction(
+        name: '_TransferViewModel.addTransferItem');
     try {
       return super.addTransferItem(newItem);
     } finally {
@@ -65,7 +63,8 @@ mixin _$TransferViewModel on _TransferViewModel, Store {
 
   @override
   void removeTransferItem(String id) {
-    final _$actionInfo = _$_TransferViewModelActionController.startAction();
+    final _$actionInfo = _$_TransferViewModelActionController.startAction(
+        name: '_TransferViewModel.removeTransferItem');
     try {
       return super.removeTransferItem(id);
     } finally {
@@ -75,7 +74,8 @@ mixin _$TransferViewModel on _TransferViewModel, Store {
 
   @override
   void updateTransferItem(TransferItemModel changedItem) {
-    final _$actionInfo = _$_TransferViewModelActionController.startAction();
+    final _$actionInfo = _$_TransferViewModelActionController.startAction(
+        name: '_TransferViewModel.updateTransferItem');
     try {
       return super.updateTransferItem(changedItem);
     } finally {
@@ -85,8 +85,9 @@ mixin _$TransferViewModel on _TransferViewModel, Store {
 
   @override
   String toString() {
-    final string =
-        'transferList: ${transferList.toString()},state: ${state.toString()}';
-    return '{$string}';
+    return '''
+transferList: ${transferList},
+state: ${state}
+    ''';
   }
 }

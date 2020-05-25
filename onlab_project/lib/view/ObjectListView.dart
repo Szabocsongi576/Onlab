@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/view/components/MyTextField.dart';
 import 'package:onlabproject/view/components/TransferFlowPage.dart';
 import 'package:onlabproject/service/MyImageLoadService.dart';
-import 'package:onlabproject/page_data/ObjectListData.dart';
+import 'package:onlabproject/page_data/ObjectListViewModel.dart';
 import 'package:onlabproject/view/components/CameraGalleryDialog.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/ObjectListItemView.dart';
@@ -13,12 +13,12 @@ import 'package:onlabproject/view/components/ObjectListItemView.dart';
 import '../Resource/StringResource.dart';
 
 class ObjectListView extends StatelessWidget {
-  final ObjectListData data;
+  final ObjectListViewModel viewModel;
   final Function onNextPage;
   final Function onPreviousPage;
 
   ObjectListView(
-      {@required this.data,
+      {@required this.viewModel,
       @required this.onNextPage,
       @required this.onPreviousPage});
 
@@ -28,7 +28,7 @@ class ObjectListView extends StatelessWidget {
         builder: (BuildContext context) {
           return CameraGalleryDialog();
         });
-    data.image = await MyImageLoadService.loadImage(dialogResult);
+    viewModel.image = await MyImageLoadService.loadImage(dialogResult);
   }
 
   @override
@@ -37,7 +37,7 @@ class ObjectListView extends StatelessWidget {
       title: StringResource.OLV_TITLE,
       onBackArrowTap: onPreviousPage,
       onForwardArrowTap: onNextPage,
-      onBackgroundTap: data.node.unfocus,
+      onBackgroundTap: viewModel.node.unfocus,
       pageIndex: 1,
       child: Column(
         children: <Widget>[
@@ -74,7 +74,7 @@ class ObjectListView extends StatelessWidget {
                       ),
                       width: ScreenUtil().setWidth(300),
                       height: ScreenUtil().setHeight(500),
-                      child: data.image == null
+                      child: viewModel.image == null
                           ? Center(
                               child: Icon(
                                 Icons.image,
@@ -82,7 +82,7 @@ class ObjectListView extends StatelessWidget {
                               ),
                             )
                           : Image.file(
-                              data.image,
+                              viewModel.image,
                               fit: BoxFit.cover,
                             ),
                     ),
@@ -108,9 +108,9 @@ class ObjectListView extends StatelessWidget {
                               0, 0, 0, ScreenUtil().setHeight(50)),
                           child: Observer(
                             builder: (_) => MyTextField(
-                                controller: data.controller,
-                                focusNode: data.node,
-                                isError: data.objectNameError,
+                                controller: viewModel.controller,
+                                focusNode: viewModel.node,
+                                isError: viewModel.objectNameError,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 3,
                                 errorText:
@@ -130,7 +130,7 @@ class ObjectListView extends StatelessWidget {
                           children: <Widget>[
                             GestureDetector(
                               onTap: () {
-                                if (data.piece != 1) data.piece--;
+                                if (viewModel.piece != 1) viewModel.piece--;
                               },
                               child: Padding(
                                 padding:
@@ -144,7 +144,7 @@ class ObjectListView extends StatelessWidget {
                             ),
                             Observer(
                               builder: (_) => Text(
-                                data.piece.toString(),
+                                viewModel.piece.toString(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: ScreenUtil()
@@ -154,7 +154,7 @@ class ObjectListView extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                data.piece++;
+                                viewModel.piece++;
                               },
                               child: Padding(
                                 padding:
@@ -179,7 +179,7 @@ class ObjectListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               MyButton(
-                onPressed: data.addListItem,
+                onPressed: viewModel.addListItem,
                 width: ScreenUtil().setWidth(400),
                 text: Text(
                   StringResource.OLV_ADD_TO_LIST_BUTTON_TEXT,
@@ -202,15 +202,15 @@ class ObjectListView extends StatelessWidget {
       builder: (_) => ListView.builder(
         primary: false,
         shrinkWrap: true,
-        itemCount: data.objectList.length,
+        itemCount: viewModel.objectList.length,
         itemBuilder: (_, int index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(25)),
             child: ObjectListItemView(
-              data: data.objectList[index],
-              image: data.images[index],
+              data: viewModel.objectList[index],
+              image: viewModel.images[index],
               onRemove: () {
-                data.removeListItem(index);
+                viewModel.removeListItem(index);
               },
             ),
           );

@@ -9,7 +9,7 @@ part of 'MyFormViewModel.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MyFormViewModel on _MyFormViewModel, Store {
-  final _$passwordAtom = Atom(name: '_MyFormData.password');
+  final _$passwordAtom = Atom(name: '_MyFormViewModel.password');
 
   @override
   String get password {
@@ -24,7 +24,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$emailAtom = Atom(name: '_MyFormData.email');
+  final _$emailAtom = Atom(name: '_MyFormViewModel.email');
 
   @override
   String get email {
@@ -39,7 +39,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$firstNameAtom = Atom(name: '_MyFormData.firstName');
+  final _$firstNameAtom = Atom(name: '_MyFormViewModel.firstName');
 
   @override
   String get firstName {
@@ -54,7 +54,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$lastNameAtom = Atom(name: '_MyFormData.lastName');
+  final _$lastNameAtom = Atom(name: '_MyFormViewModel.lastName');
 
   @override
   String get lastName {
@@ -69,7 +69,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$postalCodeAtom = Atom(name: '_MyFormData.postalCode');
+  final _$postalCodeAtom = Atom(name: '_MyFormViewModel.postalCode');
 
   @override
   String get postalCode {
@@ -84,7 +84,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$cityAtom = Atom(name: '_MyFormData.city');
+  final _$cityAtom = Atom(name: '_MyFormViewModel.city');
 
   @override
   String get city {
@@ -99,7 +99,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$streetAndNumAtom = Atom(name: '_MyFormData.streetAndNum');
+  final _$streetAndNumAtom = Atom(name: '_MyFormViewModel.streetAndNum');
 
   @override
   String get streetAndNum {
@@ -114,7 +114,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$otherAtom = Atom(name: '_MyFormData.other');
+  final _$otherAtom = Atom(name: '_MyFormViewModel.other');
 
   @override
   String get other {
@@ -129,7 +129,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$countryCodeAtom = Atom(name: '_MyFormData.countryCode');
+  final _$countryCodeAtom = Atom(name: '_MyFormViewModel.countryCode');
 
   @override
   String get countryCode {
@@ -144,7 +144,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$telAtom = Atom(name: '_MyFormData.tel');
+  final _$telAtom = Atom(name: '_MyFormViewModel.tel');
 
   @override
   String get tel {
@@ -159,7 +159,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$passwordErrorAtom = Atom(name: '_MyFormData.passwordError');
+  final _$passwordErrorAtom = Atom(name: '_MyFormViewModel.passwordError');
 
   @override
   bool get passwordError {
@@ -174,7 +174,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$emailErrorAtom = Atom(name: '_MyFormData.emailError');
+  final _$emailErrorAtom = Atom(name: '_MyFormViewModel.emailError');
 
   @override
   bool get emailError {
@@ -189,7 +189,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$firstNameErrorAtom = Atom(name: '_MyFormData.firstNameError');
+  final _$firstNameErrorAtom = Atom(name: '_MyFormViewModel.firstNameError');
 
   @override
   bool get firstNameError {
@@ -204,7 +204,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$lastNameErrorAtom = Atom(name: '_MyFormData.lastNameError');
+  final _$lastNameErrorAtom = Atom(name: '_MyFormViewModel.lastNameError');
 
   @override
   bool get lastNameError {
@@ -219,7 +219,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$postalCodeErrorAtom = Atom(name: '_MyFormData.postalCodeError');
+  final _$postalCodeErrorAtom = Atom(name: '_MyFormViewModel.postalCodeError');
 
   @override
   bool get postalCodeError {
@@ -234,7 +234,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$cityErrorAtom = Atom(name: '_MyFormData.cityError');
+  final _$cityErrorAtom = Atom(name: '_MyFormViewModel.cityError');
 
   @override
   bool get cityError {
@@ -249,7 +249,8 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$streetAndNumErrorAtom = Atom(name: '_MyFormData.streetAndNumError');
+  final _$streetAndNumErrorAtom =
+      Atom(name: '_MyFormViewModel.streetAndNumError');
 
   @override
   bool get streetAndNumError {
@@ -264,7 +265,8 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$countryCodeErrorAtom = Atom(name: '_MyFormData.countryCodeError');
+  final _$countryCodeErrorAtom =
+      Atom(name: '_MyFormViewModel.countryCodeError');
 
   @override
   bool get countryCodeError {
@@ -279,7 +281,7 @@ mixin _$MyFormViewModel on _MyFormViewModel, Store {
     });
   }
 
-  final _$telErrorAtom = Atom(name: '_MyFormData.telError');
+  final _$telErrorAtom = Atom(name: '_MyFormViewModel.telError');
 
   @override
   bool get telError {

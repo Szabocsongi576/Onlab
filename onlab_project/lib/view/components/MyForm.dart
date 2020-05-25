@@ -40,6 +40,7 @@ class MyForm extends StatelessWidget {
                         controller: viewModel.textEditingControllerMap["email"],
                         focusNode: viewModel.focusNodeMap["email"],
                         enabled: enableFields,
+                        keyboardType: TextInputType.emailAddress,
                         isError: viewModel.emailError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT_EMAIL,
                         labelText: StringResource.REGISTER_EMAIL_LABEL,
@@ -94,6 +95,7 @@ class MyForm extends StatelessWidget {
                       builder: (_) => MyTextField(
                         controller: viewModel.textEditingControllerMap["postalCode"],
                         focusNode: viewModel.focusNodeMap["postalCode"],
+                        keyboardType: TextInputType.number,
                         enabled: enableFields,
                         isError: viewModel.postalCodeError,
                         errorText: StringResource.FORM_FIELD_ERROR_TEXT,
@@ -149,6 +151,7 @@ class MyForm extends StatelessWidget {
                               builder: (_) => MyTextField(
                                 controller: viewModel.textEditingControllerMap["countryCode"],
                                 focusNode: viewModel.focusNodeMap["countryCode"],
+                                keyboardType: TextInputType.phone,
                                 enabled: enableFields,
                                 isError: viewModel.countryCodeError,
                                 errorText: StringResource.FORM_FIELD_ERROR_TEXT_COUNTRY_CODE,
@@ -162,6 +165,7 @@ class MyForm extends StatelessWidget {
                             builder: (_) => MyTextField(
                               controller: viewModel.textEditingControllerMap["tel"],
                               focusNode: viewModel.focusNodeMap["tel"],
+                              keyboardType: TextInputType.phone,
                               enabled: enableFields,
                               isError: viewModel.telError,
                               errorText: StringResource.FORM_FIELD_ERROR_TEXT,

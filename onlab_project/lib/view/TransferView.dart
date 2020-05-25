@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/controller/TransferFlowController.dart';
 import 'package:onlabproject/model/TransferItemModel.dart';
-import 'package:onlabproject/page_data/TransferViewModel.dart';
 import 'package:onlabproject/view/TransferDetailsView.dart';
 
 import '../Resource/StringResource.dart';
@@ -77,14 +76,14 @@ class TransferView extends StatelessWidget {
                                       if (list[index].state ==
                                           TransferListItemState
                                               .OFFER_RECEIVED) {
-                                        onItemAccept(list[index].id);
+                                        onItemAccept(index);
                                       }
                                     },
                                     onDeny: () {
                                       if (list[index].state ==
                                           TransferListItemState
                                               .OFFER_RECEIVED) {
-                                        onItemDeny(list[index].id);
+                                        onItemDeny(index);
                                       }
                                     },
                                   ),

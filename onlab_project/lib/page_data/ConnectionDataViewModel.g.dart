@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ConnectionDataData.dart';
+part of 'ConnectionDataViewModel.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,27 +8,27 @@ part of 'ConnectionDataData.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ConnectionDataData on _ConnectionDataData, Store {
-  final _$useProfileDataAtom = Atom(name: '_ConnectionDataData.useProfileData');
+mixin _$ConnectionDataViewModel on _ConnectionDataViewModel, Store {
+  final _$useProfileDataAtom =
+      Atom(name: '_ConnectionDataViewModel.useProfileData');
 
   @override
   bool get useProfileData {
-    _$useProfileDataAtom.context.enforceReadPolicy(_$useProfileDataAtom);
-    _$useProfileDataAtom.reportObserved();
+    _$useProfileDataAtom.reportRead();
     return super.useProfileData;
   }
 
   @override
   set useProfileData(bool value) {
-    _$useProfileDataAtom.context.conditionallyRunInAction(() {
+    _$useProfileDataAtom.reportWrite(value, super.useProfileData, () {
       super.useProfileData = value;
-      _$useProfileDataAtom.reportChanged();
-    }, _$useProfileDataAtom, name: '${_$useProfileDataAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string = 'useProfileData: ${useProfileData.toString()}';
-    return '{$string}';
+    return '''
+useProfileData: ${useProfileData}
+    ''';
   }
 }
