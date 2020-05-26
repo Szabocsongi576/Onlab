@@ -39,12 +39,15 @@ class ObjectListView extends StatelessWidget {
       onForwardArrowTap: onNextPage,
       onBackgroundTap: viewModel.node.unfocus,
       pageIndex: 1,
-      child: Column(
-        children: <Widget>[
-          _buildAddObject(context),
-          _buildListView(),
-          //_buildNextButton(),
-        ],
+      child: Container(
+        width: ScreenUtil().setWidth(650),
+        child: Column(
+          children: <Widget>[
+            _buildAddObject(context),
+            _buildListView(),
+            //_buildNextButton(),
+          ],
+        ),
       ),
     );
   }
