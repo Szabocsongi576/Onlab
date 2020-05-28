@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/page_data/DateSelectViewModel.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
-import 'package:onlabproject/view/components/TransferFlowPage.dart';
+import 'package:onlabproject/view/components/MovingFlowPage.dart';
+import 'package:onlabproject/view_model/DateSelectViewModel.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../Resource/StringResource.dart';
@@ -22,7 +22,7 @@ class DateSelectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TransferFlowPage(
+    return MovingFlowPage(
       title: StringResource.DSV_TITLE,
       onBackArrowTap: onPreviousPage,
       pageIndex: 2,

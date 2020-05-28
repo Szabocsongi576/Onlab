@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/service/TransferListItemConvertService.dart';
-import 'package:onlabproject/model/TransferItemModel.dart';
+import 'package:onlabproject/model/MovingItemModel.dart';
 
 class TransferListItem extends StatelessWidget {
-  final TransferItemModel data;
+  final MovingItemModel model;
 
-  TransferListItem(this.data);
+  TransferListItem(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class TransferListItem extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(
                         0, 0, 0, ScreenUtil().setHeight(30)),
                     child: Text(
-                      data.address,
+                      model.address,
                       style: TextStyle(
                         fontSize: ScreenUtil()
                             .setSp(40, allowFontScalingSelf: true),
@@ -48,9 +48,9 @@ class TransferListItem extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Text(
-                      data.date.toString().split(" ")[0] +
+                      model.date.toString().split(" ")[0] +
                           "\n" +
-                          data.timeInterval,
+                          model.timeInterval,
                       style: TextStyle(
                         fontSize: ScreenUtil()
                             .setSp(30, allowFontScalingSelf: true),
@@ -64,20 +64,20 @@ class TransferListItem extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            color: TransferListItemConvertService.getSStatusBarColorByState(
-                data.state),
+            color: MovingListItemConvertService.getSStatusBarColorByState(
+                model.state),
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: ScreenUtil().setWidth(30),
                   vertical: ScreenUtil().setHeight(20)),
               child: Text(
-                TransferListItemConvertService.getStringFromEnumValue(data.state),
+                MovingListItemConvertService.getStringFromEnumValue(model.state),
                 style: TextStyle(
                   fontSize:
                       ScreenUtil().setSp(30, allowFontScalingSelf: true),
                   fontWeight: FontWeight.bold,
-                  color: TransferListItemConvertService
-                      .getSStatusBarTextColorByState(data.state),
+                  color: MovingListItemConvertService
+                      .getSStatusBarTextColorByState(model.state),
                 ),
               ),
             ),

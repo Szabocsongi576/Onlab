@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/view/components/TransferFlowPage.dart';
-import 'package:onlabproject/page_data/ConnectionDataViewModel.dart';
+import 'package:onlabproject/view/components/MovingFlowPage.dart';
 import 'package:onlabproject/view/components/MyForm.dart';
+import 'package:onlabproject/view_model/ConnectionDataViewModel.dart';
 
 import '../Resource/StringResource.dart';
 
 class ConnectionDataView extends StatelessWidget {
-  final ConnectionDataViewModel data;
+  final ConnectionDataViewModel viewModel;
   final Function onNextPage;
   final Function onPreviousPage;
 
   const ConnectionDataView(
-      {@required this.data,
+      {@required this.viewModel,
       @required this.onNextPage,
       @required this.onPreviousPage});
 
-  _nextPage(BuildContext context) {
-    if (data.useProfileData || data.formViewModel.validate()) {
+  void _nextPage(BuildContext context) {
+    if (viewModel.useProfileData || viewModel.formViewModel.validate()) {
       onNextPage();
     } else {
       Scaffold.of(context).showSnackBar(
@@ -28,7 +28,7 @@ class ConnectionDataView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TransferFlowPage(
+    return MovingFlowPage(
       title: StringResource.CDV_TITLE,
       onBackArrowTap: onPreviousPage,
       onForwardArrowTap: () {
@@ -40,8 +40,8 @@ class ConnectionDataView extends StatelessWidget {
           _buildUseProfileDataCB(),
           Observer(
             builder: (_) => MyForm(
-              viewModel: data.formViewModel,
-              enableFields: !data.useProfileData,
+              viewModel: viewModel.formViewModel,
+              enableFields: !viewModel.useProfileData,
             ),
           ),
         ],
@@ -61,11 +61,11 @@ class ConnectionDataView extends StatelessWidget {
             ),
             child: Observer(
               builder: (_) => Checkbox(
-                value: data.useProfileData,
+                value: viewModel.useProfileData,
                 activeColor: Color.fromARGB(255, 255, 115, 0),
                 checkColor: Colors.white,
                 onChanged: (bool value) {
-                  data.useProfileData = value;
+                  viewModel.useProfileData = value;
                 },
               ),
             ),

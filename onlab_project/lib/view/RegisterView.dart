@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/page_data/RegisterViewModel.dart';
 import 'package:onlabproject/view/TabView.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/MyForm.dart';
+import 'package:onlabproject/view_model/RegisterViewModel.dart';
 
 class RegisterView extends StatelessWidget {
   final Function stateChanged;

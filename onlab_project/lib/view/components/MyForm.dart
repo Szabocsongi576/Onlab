@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/page_data/MyFormViewModel.dart';
 import 'package:onlabproject/view/components/MyTextField.dart';
+import 'package:onlabproject/view_model/MyFormViewModel.dart';
 
 class MyForm extends StatelessWidget {
   final MyFormViewModel viewModel;

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onlabproject/controller/TransferFlowController.dart';
-import 'package:onlabproject/model/TransferItemModel.dart';
-import 'package:onlabproject/view/TransferDetailsView.dart';
+import 'package:onlabproject/controller/MovingFlowController.dart';
+import 'package:onlabproject/model/MovingItemModel.dart';
+import 'package:onlabproject/view/MovingDetailsView.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';
 import 'components/MyButton.dart';
-import 'components/TransferListItem.dart';
+import 'components/MovingListItem.dart';
 
-class TransferView extends StatelessWidget {
-  final List<TransferItemModel> list;
+class MovingView extends StatelessWidget {
+  final List<MovingItemModel> list;
   final Function onItemAccept;
   final Function onItemDeny;
 
-  const TransferView(
+  const MovingView(
       {Key key,
       @required this.list,
       @required this.onItemAccept,
@@ -44,7 +44,7 @@ class TransferView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          StringResource.TRANSFER_TITLE.toUpperCase(),
+                          StringResource.MOVING_TITLE.toUpperCase(),
                           style: TextStyle(
                             fontSize: ScreenUtil()
                                 .setSp(60, allowFontScalingSelf: true),
@@ -70,18 +70,18 @@ class TransferView extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => TransferDetailsView(
+                                  builder: (context) => MovingDetailsView(
                                     model: list[index],
                                     onAccept: () {
                                       if (list[index].state ==
-                                          TransferListItemState
+                                          MovingListItemState
                                               .OFFER_RECEIVED) {
                                         onItemAccept(index);
                                       }
                                     },
                                     onDeny: () {
                                       if (list[index].state ==
-                                          TransferListItemState
+                                          MovingListItemState
                                               .OFFER_RECEIVED) {
                                         onItemDeny(index);
                                       }
@@ -90,7 +90,7 @@ class TransferView extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: TransferListItem(list[index]),
+                            child: MovingListItem(list[index]),
                           ),
                         ),
                       ),
@@ -101,7 +101,7 @@ class TransferView extends StatelessWidget {
                         0, 0, 0, ScreenUtil().setHeight(80)),
                     child: MyButton(
                       text: Text(
-                        StringResource.TRANSFER_NEW_BUTTON_TEXT,
+                        StringResource.MOVING_NEW_BUTTON_TEXT,
                         style: TextStyle(
                           fontSize: ScreenUtil()
                               .setSp(35, allowFontScalingSelf: true),
@@ -114,7 +114,7 @@ class TransferView extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    TransferFlowController()));
+                                    MovingFlowController()));
                       },
                     ),
                   ),

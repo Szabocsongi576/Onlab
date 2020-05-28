@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:onlabproject/model/ProfileModel.dart';
-import 'package:onlabproject/page_data/MyFormViewModel.dart';
 import 'package:onlabproject/service/firebase/MyFirebaseAuthService.dart';
 import 'package:onlabproject/service/firebase/MyFirebaseDatabaseService.dart';
+import 'package:onlabproject/view_model/MyFormViewModel.dart';
 
 part 'ProfileViewModel.g.dart';
 

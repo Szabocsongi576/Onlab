@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:onlabproject/page_data/LoginViewModel.dart';
-import 'package:onlabproject/page_data/RegisterViewModel.dart';
 import 'package:onlabproject/view/LoginView.dart';
 import 'package:onlabproject/view/RegisterView.dart';
 import 'package:onlabproject/view/components/LoadingPage.dart';
+import 'package:onlabproject/view_model/LoginViewModel.dart';
+import 'package:onlabproject/view_model/RegisterViewModel.dart';
 
 class AuthController extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class _AuthControllerState extends State<AuthController>  {
   LoginViewModel _loginViewModel;
   AuthState _authState = AuthState.LOADING;
 
-  void stateChanged() {
+  void _stateChanged() {
     setState(() {
       if (_authState == AuthState.LOGIN) {
         _authState = AuthState.REGISTER;
@@ -44,12 +44,12 @@ class _AuthControllerState extends State<AuthController>  {
     switch(_authState) {
       case AuthState.LOGIN:
         return LoginView(
-          stateChanged: stateChanged,
+          stateChanged: _stateChanged,
           viewModel: _loginViewModel,
         );
       case AuthState.REGISTER:
         return RegisterView(
-          stateChanged: stateChanged,
+          stateChanged: _stateChanged,
           viewModel: _registerViewModel,
         );
       default:

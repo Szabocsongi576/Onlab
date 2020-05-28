@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/page_data/LoginViewModel.dart';
 import 'package:onlabproject/service/firebase/MyFirebaseAuthService.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/MyTextField.dart';
+import 'package:onlabproject/view_model/LoginViewModel.dart';
 
 import 'TabView.dart';
 
@@ -16,12 +16,12 @@ class LoginView extends StatelessWidget {
 
   LoginView({Key key, this.stateChanged, this.viewModel}) : super(key: key);
 
-  void changeState() {
+  void _changeState() {
     viewModel.loseFocus();
     stateChanged();
   }
 
-  Future<void> login(BuildContext context) async {
+  Future<void> _login(BuildContext context) async {
     viewModel.loseFocus();
 
     switch (await viewModel.login()) {
@@ -152,7 +152,7 @@ class LoginView extends StatelessWidget {
                             ),
                             width: ScreenUtil().setWidth(450),
                             onPressed: () {
-                              login(context);
+                              _login(context);
                             },
                           ),
                         ),
@@ -169,7 +169,7 @@ class LoginView extends StatelessWidget {
                               ),
                             ),
                             width: ScreenUtil().setWidth(450),
-                            onPressed: changeState,
+                            onPressed: _changeState,
                           ),
                         ),
                         Padding(

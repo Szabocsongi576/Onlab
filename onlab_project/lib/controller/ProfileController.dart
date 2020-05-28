@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onlabproject/controller/AuthController.dart';
-import 'package:onlabproject/page_data/ProfileViewModel.dart';
 import 'package:onlabproject/view/ProfileView.dart';
 import 'package:onlabproject/view/components/LoadingPage.dart';
+import 'package:onlabproject/view_model/ProfileViewModel.dart';
 
 class ProfileController extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class ProfileController extends StatefulWidget {
 }
 
 class _ProfileControllerState extends State<ProfileController> {
-  ProfileViewModel _viewModel = ProfileViewModel();
+  final ProfileViewModel _viewModel = ProfileViewModel();
 
   @override
   void initState() {

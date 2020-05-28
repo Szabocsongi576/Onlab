@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'TransferViewModel.dart';
+part of 'MovingViewModel.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,32 +8,32 @@ part of 'TransferViewModel.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$TransferViewModel on _TransferViewModel, Store {
+mixin _$MovingViewModel on _MovingViewModel, Store {
   final _$transferListAtom = Atom(name: '_TransferViewModel.transferList');
 
   @override
-  ObservableList<TransferItemModel> get transferList {
+  ObservableList<MovingItemModel> get movingList {
     _$transferListAtom.reportRead();
-    return super.transferList;
+    return super.movingList;
   }
 
   @override
-  set transferList(ObservableList<TransferItemModel> value) {
-    _$transferListAtom.reportWrite(value, super.transferList, () {
-      super.transferList = value;
+  set movingList(ObservableList<MovingItemModel> value) {
+    _$transferListAtom.reportWrite(value, super.movingList, () {
+      super.movingList = value;
     });
   }
 
   final _$stateAtom = Atom(name: '_TransferViewModel.state');
 
   @override
-  TransferState get state {
+  MovingState get state {
     _$stateAtom.reportRead();
     return super.state;
   }
 
   @override
-  set state(TransferState value) {
+  set state(MovingState value) {
     _$stateAtom.reportWrite(value, super.state, () {
       super.state = value;
     });
@@ -43,41 +43,41 @@ mixin _$TransferViewModel on _TransferViewModel, Store {
       AsyncAction('_TransferViewModel.loadTransferItems');
 
   @override
-  Future<void> loadTransferItems() {
-    return _$loadTransferItemsAsyncAction.run(() => super.loadTransferItems());
+  Future<void> loadMovingItems() {
+    return _$loadTransferItemsAsyncAction.run(() => super.loadMovingItems());
   }
 
   final _$_TransferViewModelActionController =
       ActionController(name: '_TransferViewModel');
 
   @override
-  void addTransferItem(TransferItemModel newItem) {
+  void addMovingItem(MovingItemModel newItem) {
     final _$actionInfo = _$_TransferViewModelActionController.startAction(
         name: '_TransferViewModel.addTransferItem');
     try {
-      return super.addTransferItem(newItem);
+      return super.addMovingItem(newItem);
     } finally {
       _$_TransferViewModelActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void removeTransferItem(String id) {
+  void removeMovingItem(String id) {
     final _$actionInfo = _$_TransferViewModelActionController.startAction(
         name: '_TransferViewModel.removeTransferItem');
     try {
-      return super.removeTransferItem(id);
+      return super.removeMovingItem(id);
     } finally {
       _$_TransferViewModelActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void updateTransferItem(TransferItemModel changedItem) {
+  void updateMovingItem(MovingItemModel changedItem) {
     final _$actionInfo = _$_TransferViewModelActionController.startAction(
         name: '_TransferViewModel.updateTransferItem');
     try {
-      return super.updateTransferItem(changedItem);
+      return super.updateMovingItem(changedItem);
     } finally {
       _$_TransferViewModelActionController.endAction(_$actionInfo);
     }
@@ -86,7 +86,7 @@ mixin _$TransferViewModel on _TransferViewModel, Store {
   @override
   String toString() {
     return '''
-transferList: ${transferList},
+transferList: ${movingList},
 state: ${state}
     ''';
   }

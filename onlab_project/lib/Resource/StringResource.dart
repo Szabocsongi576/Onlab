@@ -11,10 +11,10 @@ class StringResource {
   static const String SNACK_LOGIN_FAILED = "Belépés sikertelen.";
   static const String SNACK_INVALID_DATA = "Ellenőrizze a mezők tartalmát!";
 
-  static const String TRANSFER_LIST_ITEM_OFFER_CLAIM_SENT = "Ajánlatkérés elküldve";
-  static const String TRANSFER_LIST_ITEM_OFFER_VIEW = "Az ajánlat elfogadásra vár";
-  static const String TRANSFER_LIST_ITEM_UNDER_TRANSFER = "Elszállítás alatt";
-  static const String TRANSFER_LIST_ITEM_DONE = "Kész";
+  static const String MOVING_LIST_ITEM_OFFER_CLAIM_SENT = "Ajánlatkérés elküldve";
+  static const String MOVING_LIST_ITEM_OFFER_VIEW = "Az ajánlat elfogadásra vár";
+  static const String MOVING_LIST_ITEM_UNDER_TRANSFER = "Elszállítás alatt";
+  static const String MOVING_LIST_ITEM_DONE = "Kész";
 
   static const String LOGIN_TITLE = "Bejelentkezés";
   static const String LOGIN_EMAIL_LABEL = "Email cím";
@@ -36,8 +36,8 @@ class StringResource {
   static const String REGISTER_COUNTRY_CODE_LABEL = "Országkód";
   static const String REGISTER_TEL_LABEL = "Telefonszám";
 
-  static const String TRANSFER_TITLE = "Foglalások";
-  static const String TRANSFER_NEW_BUTTON_TEXT = "Új foglalás";
+  static const String MOVING_TITLE = "Foglalások";
+  static const String MOVING_NEW_BUTTON_TEXT = "Új foglalás";
 
   static const String CONTACT_TITLE = "Kapcsolat";
   static const String CONTACT_DESC = "Amennyiben kérdése akadna, vagy valamilyen probléma adódna, vegye fel felünk a kapcsolatot!";
@@ -49,7 +49,7 @@ class StringResource {
   static const String PROFILE_TITLE = "Profil";
   static const String PROFILE_SAVE_BUTTON_TEXT = "Mentés";
 
-  static const String TRANSFER_DETAILS_TITLE = "Ajánlat";
+  static const String MOVING_DETAILS_TITLE = "Ajánlat";
   static const String OFFER_ADDR = "Cím:";
   static const String OFFER_DATE = "Dátum:";
   static const String OFFER_TIME = "Időpont:";

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:onlabproject/page_data/ProfileViewModel.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/MyForm.dart';
+import 'package:onlabproject/view_model/ProfileViewModel.dart';
 
 import '../Resource/StringResource.dart';
 import 'components/MyBackground.dart';

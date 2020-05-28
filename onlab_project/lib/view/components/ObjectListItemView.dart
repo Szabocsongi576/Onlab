@@ -7,14 +7,14 @@ import 'package:onlabproject/model/ObjectItemModel.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ObjectListItemView extends StatelessWidget {
-  final ObjectItemModel data;
+  final ObjectItemModel model;
   final File image;
   final Function onRemove;
   final bool imageFromURL;
 
   const ObjectListItemView({
     Key key,
-    @required this.data,
+    @required this.model,
     this.onRemove,
     this.image,
     this.imageFromURL = false,
@@ -56,27 +56,26 @@ class ObjectListItemView extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     Center(child: Icon(Icons.image)),
-                    (imageFromURL)
+                    (imageFromURL && model.imageURL != null)
                         ? Container(
                             width: ScreenUtil().setWidth(230),
                             height: ScreenUtil().setHeight(400),
                             child: FadeInImage.memoryNetwork(
                               fit: BoxFit.cover,
-                              image: data.imageURL,
+                              image: model.imageURL,
                               placeholder: kTransparentImage,
                             ),
                           )
-                        : Container(),
-                    (image != null)
-                        ? Container(
-                            width: ScreenUtil().setWidth(230),
-                            height: ScreenUtil().setHeight(400),
-                            child: Image.file(
-                              image,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : Container(),
+                        : (image != null)
+                            ? Container(
+                                width: ScreenUtil().setWidth(230),
+                                height: ScreenUtil().setHeight(400),
+                                child: Image.file(
+                                  image,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Container(),
                   ],
                 ),
               ),
@@ -121,7 +120,7 @@ class ObjectListItemView extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        data.name,
+                        model.name,
                         //overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.black,
@@ -158,7 +157,7 @@ class ObjectListItemView extends StatelessWidget {
                           padding: EdgeInsets.fromLTRB(
                               ScreenUtil().setWidth(20), 0, 0, 0),
                           child: Text(
-                            data.piece.toString(),
+                            model.piece.toString(),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: ScreenUtil()

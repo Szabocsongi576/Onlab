@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:onlabproject/Resource/StringResource.dart';
-import 'package:onlabproject/service/TransferListItemConvertService.dart';
-import 'package:onlabproject/model/TransferItemModel.dart';
+import 'package:onlabproject/service/MovingListItemConvertService.dart';
+import 'package:onlabproject/model/MovingItemModel.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/ObjectListItemView.dart';
 
 import 'components/MyBackground.dart';
 
-class TransferDetailsView extends StatelessWidget {
-  final TransferItemModel model;
+class MovingDetailsView extends StatelessWidget {
+  final MovingItemModel model;
   final Function onAccept;
   final Function onDeny;
 
-  TransferDetailsView({@required this.model, this.onAccept, this.onDeny});
+  MovingDetailsView({@required this.model, this.onAccept, this.onDeny});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class TransferDetailsView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          StringResource.TRANSFER_DETAILS_TITLE.toUpperCase(),
+                          StringResource.MOVING_DETAILS_TITLE.toUpperCase(),
                           style: TextStyle(
                             fontSize: ScreenUtil()
                                 .setSp(60, allowFontScalingSelf: true),
@@ -88,20 +88,20 @@ class TransferDetailsView extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             width: double.infinity,
-                            color: TransferListItemConvertService
+                            color: MovingListItemConvertService
                                 .getSStatusBarColorByState(model.state),
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: ScreenUtil().setWidth(30),
                                   vertical: ScreenUtil().setHeight(20)),
                               child: Text(
-                                TransferListItemConvertService
+                                MovingListItemConvertService
                                     .getStringFromEnumValue(model.state),
                                 style: TextStyle(
                                   fontSize: ScreenUtil()
                                       .setSp(30, allowFontScalingSelf: true),
                                   fontWeight: FontWeight.bold,
-                                  color: TransferListItemConvertService
+                                  color: MovingListItemConvertService
                                       .getSStatusBarTextColorByState(
                                           model.state),
                                 ),
@@ -209,7 +209,7 @@ class TransferDetailsView extends StatelessWidget {
                                     0,
                                     0,
                                     (model.state ==
-                                            TransferListItemState
+                                            MovingListItemState
                                                 .OFFER_RECEIVED)
                                         ? ScreenUtil().setHeight(30)
                                         : 0,
@@ -224,7 +224,7 @@ class TransferDetailsView extends StatelessWidget {
                                   ),
                                 ),
                                 (model.state ==
-                                        TransferListItemState.OFFER_RECEIVED)
+                                        MovingListItemState.OFFER_RECEIVED)
                                     ? Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -296,13 +296,13 @@ class TransferDetailsView extends StatelessWidget {
                               itemCount: model.objectList.length,
                               itemBuilder: (_, int index) {
                                 return ObjectListItemView(
-                                  data: model.objectList[index],
+                                  model: model.objectList[index],
                                   imageFromURL: true,
                                 );
                               },
                             ),
                           ),
-                          (model.state == TransferListItemState.OFFER_RECEIVED)
+                          (model.state == MovingListItemState.OFFER_RECEIVED)
                               ? Container(
                                   height: ScreenUtil().setHeight(150),
                                   child: Row(

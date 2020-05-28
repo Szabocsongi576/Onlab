@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/view/components/MyTextField.dart';
-import 'package:onlabproject/view/components/TransferFlowPage.dart';
+import 'package:onlabproject/view/components/MovingFlowPage.dart';
 import 'package:onlabproject/service/MyImageLoadService.dart';
-import 'package:onlabproject/page_data/ObjectListViewModel.dart';
 import 'package:onlabproject/view/components/CameraGalleryDialog.dart';
 import 'package:onlabproject/view/components/MyButton.dart';
 import 'package:onlabproject/view/components/ObjectListItemView.dart';
+import 'package:onlabproject/view_model/ObjectListViewModel.dart';
 
 import '../Resource/StringResource.dart';
 
@@ -33,7 +33,7 @@ class ObjectListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TransferFlowPage(
+    return MovingFlowPage(
       title: StringResource.OLV_TITLE,
       onBackArrowTap: onPreviousPage,
       onForwardArrowTap: onNextPage,
@@ -210,7 +210,7 @@ class ObjectListView extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(25)),
             child: ObjectListItemView(
-              data: viewModel.objectList[index],
+              model: viewModel.objectList[index],
               image: viewModel.images[index],
               onRemove: () {
                 viewModel.removeListItem(index);

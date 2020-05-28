@@ -8,16 +8,16 @@ class MyFirebaseAuthService {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static FirebaseUser user;
 
-  static Future<bool> register(String email, String password, ProfileModel data) async {
+  static Future<bool> register(String email, String password, ProfileModel model) async {
     user = (await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     )).user;
 
     if (user != null) {
-      data.userId = user.uid;
+      model.userId = user.uid;
 
-      MyFirebaseDatabaseService.addOrUpdateProfile(data);
+      MyFirebaseDatabaseService.addOrUpdateProfile(model);
       //TODO Firebase API -> dynamic database rules handling
 
       return true;

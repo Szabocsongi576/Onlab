@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlabproject/model/ObjectItemModel.dart';
-import 'package:onlabproject/service/TransferListItemConvertService.dart';
+import 'package:onlabproject/service/MovingListItemConvertService.dart';
 
-class TransferItemModel {
+class MovingItemModel {
   String id;
 
-  final TransferListItemState state;
+  final MovingListItemState state;
   final String description;
   final int price;
 
@@ -18,9 +18,9 @@ class TransferItemModel {
   final DateTime date;
   final String timeInterval;
 
-  TransferItemModel({
+  MovingItemModel({
     this.id,
-    this.state = TransferListItemState.OFFER_CLAIM_SENT,
+    this.state = MovingListItemState.OFFER_CLAIM_SENT,
     this.description,
     this.price,
     @required this.address,
@@ -31,9 +31,9 @@ class TransferItemModel {
     @required this.timeInterval,
   });
 
-  TransferItemModel.fromSnapshot(dynamic id, dynamic snapshotValue)
+  MovingItemModel.fromSnapshot(dynamic id, dynamic snapshotValue)
       : id = id,
-        state = TransferListItemConvertService.getStateByStateId(snapshotValue["state"]),
+        state = MovingListItemConvertService.getStateByStateId(snapshotValue["state"]),
         description = snapshotValue["description"] ?? snapshotValue["description"],
         price = snapshotValue["price"] ?? snapshotValue["price"],
         address = snapshotValue["address"],
@@ -59,13 +59,13 @@ class TransferItemModel {
     int stateId;
 
     switch (this.state) {
-      case TransferListItemState.OFFER_CLAIM_SENT:
+      case MovingListItemState.OFFER_CLAIM_SENT:
         stateId = 0;
         break;
-      case TransferListItemState.OFFER_RECEIVED:
+      case MovingListItemState.OFFER_RECEIVED:
         stateId = 1;
         break;
-      case TransferListItemState.UNDER_TRANSFER:
+      case MovingListItemState.UNDER_TRANSFER:
         stateId = 2;
         break;
       default:
@@ -91,7 +91,7 @@ class TransferItemModel {
   }
 }
 
-enum TransferListItemState {
+enum MovingListItemState {
   OFFER_CLAIM_SENT,
   OFFER_RECEIVED,
   UNDER_TRANSFER,
