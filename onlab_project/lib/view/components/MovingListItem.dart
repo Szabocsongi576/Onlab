@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:onlabproject/service/TransferListItemConvertService.dart';
+import 'package:onlabproject/service/MovingListItemConvertService.dart';
 import 'package:onlabproject/model/MovingItemModel.dart';
 
-class TransferListItem extends StatelessWidget {
+class MovingListItem extends StatelessWidget {
   final MovingItemModel model;
 
-  TransferListItem(this.model);
+  MovingListItem(this.model);
 
   @override
   Widget build(BuildContext context) {

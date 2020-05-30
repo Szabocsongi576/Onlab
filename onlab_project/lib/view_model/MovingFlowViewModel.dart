@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
 import 'package:onlabproject/model/ProfileModel.dart';
 import 'package:onlabproject/model/MovingItemModel.dart';
 import 'package:onlabproject/service/firebase/MyFirebaseDatabaseService.dart';
@@ -7,19 +6,12 @@ import 'package:onlabproject/view_model/ConnectionDataViewModel.dart';
 import 'package:onlabproject/view_model/DateSelectViewModel.dart';
 import 'package:onlabproject/view_model/ObjectListViewModel.dart';
 
-part 'MovingFlowViewModel.g.dart';
-
-class MovingFlowViewModel = _MovingFlowViewModel with _$MovingFlowViewModel;
-
-abstract class _MovingFlowViewModel with Store {
+class MovingFlowViewModel {
   final ConnectionDataViewModel connectionDataViewModel = ConnectionDataViewModel();
   final DateSelectViewModel dateSelectViewModel = DateSelectViewModel();
   final ObjectListViewModel objectListViewModel = ObjectListViewModel();
 
   final pageController = PageController(initialPage: 0);
-
-  @observable
-  bool useProfileData = false;
 
   Future<void> uploadNewMoving() async {
     ProfileModel profileModel;

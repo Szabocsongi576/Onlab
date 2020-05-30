@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onlabproject/view/components/MyBackground.dart';
 import 'package:page_view_indicators/step_page_indicator.dart';
 
-class TransferFlowPage extends StatelessWidget {
+class MovingFlowPage extends StatelessWidget {
   final String title;
   final Function onBackArrowTap;
   final Function onForwardArrowTap;
@@ -13,7 +13,7 @@ class TransferFlowPage extends StatelessWidget {
   final bool isLastPage;
   final Widget child;
 
-  const TransferFlowPage(
+  const MovingFlowPage(
       {Key key,
       @required this.title,
       @required this.onBackArrowTap,

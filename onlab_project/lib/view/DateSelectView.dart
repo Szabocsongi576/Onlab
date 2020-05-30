@@ -34,7 +34,7 @@ class DateSelectView extends StatelessWidget {
           child: Column(
             children: <Widget>[
               _buildDatePicker(context),
-              _buildDayPeriodSelect(context),
+              _buildTimeIntervalSelect(context),
               _buildOfferClaim(),
             ],
           ),
@@ -87,7 +87,7 @@ class DateSelectView extends StatelessWidget {
     );
   }
 
-  _buildDayPeriodSelect(BuildContext context) {
+  _buildTimeIntervalSelect(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(20)),
       child: Observer(

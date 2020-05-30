@@ -85,20 +85,7 @@ class MyFirebaseDatabaseService {
         .child("moving_list")
         .child(id);
 
-    await movingListItemRef.child("state").set(newState);
-  }
-
-  static Future<void> patchMovingList(MovingItemModel item) async {
-    DatabaseReference movingListRef = _database
-        .reference()
-        .child(MyFirebaseAuthService.user.uid)
-        .child('moving_list');
-
-    var itemRef = movingListRef
-        .child(item.id)
-        .reference();
-
-    await itemRef.child("state").update({"state": item.state});
+    await movingListItemRef.child("state").update({"state": newState});
   }
 
   static void registerMovingListChildAddedListener(
